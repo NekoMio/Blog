@@ -1,0 +1,108 @@
+# Header
+menu:
+  主页: /
+  所有文章: /archives
+  # OmegaOptions: /OmegaOptions.bak
+  # 随笔: /tags/随笔
+
+# SubNav
+subnav:
+  github: "https://github.com/hzoi-wildrage"
+  # zhihu: "#"
+  mail: "mailto:wangxiaohui0821@gmail.com"
+  # qq: "#"
+  # weibo: "#"
+  # rss: "#"
+  #douban: "#"
+  #facebook: "#"
+  #google: "#"
+  #twitter: "#"
+  #linkedin: "#"
+
+rss: /atom.xml
+
+# Content
+# excerpt_link: 阅读全文
+excerpt_link: more
+fancybox: true
+mathjax: true
+
+# 是否开启动画效果
+animate: true
+
+# 是否在新窗口打开链接
+open_in_new: true
+
+# 百度统计、谷歌统计
+# baidu_tongji: true
+google_analytics: true
+  #enable: true
+  #id: UA-102044541-1
+  #site: auto
+
+favicon: https://wildrage.cf/null.png
+
+#你的头像url
+avatar: https://wildrage.cf/null.png
+
+#是否开启分享
+share: true
+
+#是否开启多说评论，填写你在多说申请的项目名称 duoshuo: duoshuo-key
+#若使用disqus，请在博客config文件中填写disqus_shortname，并关闭多说评论
+# duoshuo: your duoshuo id
+
+#是否开启云标签
+tagcloud: true
+
+#是否开启文章阅读量
+leancloud_visitors:
+  enable: false
+  app_id: your_app_id
+  app_key: your_app_key
+
+#是否开启一言
+hitokoto: true
+
+#firebase 统计
+firebase:
+  enable: true
+  apiKey: AIzaSyAB2wMRDT1iqYY_dLHJDP2R2-cArO30zUU
+  authDomain: blog-wildrage-data.firebaseapp.com
+  databaseURL: https://blog-wildrage-data.firebaseio.com
+  projectId: blog-wildrage-data
+  storageBucket: blog-wildrage-data.appspot.com
+  messagingSenderId: 142561920530
+
+JiaThis:
+  enable: false
+
+uyan: false
+
+#是否开启友情链接
+#不开启——
+#friends: false
+#开启——
+friends:
+  大佬WQ: https://www.cnblogs.com/TSHugh/
+  又一个大佬ZZH: https://www.cnblogs.com/LadyLex/
+  某自己有服务器的壕YZH: https://zhuohao.me
+  756最帅的ryf: http://blog.csdn.net/ren_ivan/
+  小姨子xyz: https://www.cnblogs.com/radioteletscope/
+  zyf_2002: http://blog.csdn.net/zyf_2002
+  QSY: https://www.cnblogs.com/forevergoodboy/
+  srs: https://www.cnblogs.com/moyiii-/
+  wcx: https://www.cnblogs.com/hzoi-mafia/
+  张司机: https://rvalue.cnblogs.com/
+  lyy: http://blog.csdn.net/hunter_hunterl
+  Hallmeow: http://blog.csdn.net/hallmeow
+  ljy: http://blog.csdn.net/tworsto_dk
+  myx: http://blog.csdn.net/yymxw
+#是否开启“关于我”。
+# 不开启——
+# aboutme: false
+# 开启——
+aboutme: 衡水中学高中生
+
+swift_search:
+  enable: true

@@ -1,0 +1,25 @@
+language: node_js
+sudo: false
+branches:
+  only:
+  - master
+node_js:
+- 8.4.0
+cache:
+  apt: true
+  directories:
+  - node_modules
+before_install:
+- openssl aes-256-cbc -K $encrypted_770d843e44c4_key -iv $encrypted_770d843e44c4_iv
+  -in .travis/id_rsa.enc -out ~/.ssh/id_rsa -d
+- chmod 600 ~/.ssh/id_rsa
+- eval $(ssh-agent)
+- ssh-add ~/.ssh/id_rsa
+- cp .travis/ssh_config ~/.ssh/config
+- git config --global user.name 'HZoi-WildRage'
+- git config --global user.email 'wangxiaohui0821@gmail.com'
+addons:
+  ssh_known_hosts: git.coding.net
+script:
+- hexo clean
+- hexo d -g

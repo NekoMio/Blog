@@ -1,0 +1,17 @@
+<div class="hitokoto">
+    <h4 style="text-align: center">一言（ヒトコト）</h4>
+    <div class="hitokoto-text">
+    <script>
+    $.get('https://sslapi.hitokoto.cn/?c=a', function (data) {
+        data = JSON.parse(data);
+        $('#hitokoto-loader').removeClass('active');
+        $('#hitokoto-content').css('display', '').text(data.hitokoto);
+        if (data.from) {
+        $('#hitokoto-from').css('display', '').text('——' + data.from);
+        }
+    });
+    </script>
+    <div style="font-size: 0.8em; line-height: 1.5em; display: none; " id="hitokoto-content"></div>
+    <div style="text-align: right; margin-top: 15px; font-size: 0.7em; display: none; " id="hitokoto-from"></div>	
+    </div>
+</div>
