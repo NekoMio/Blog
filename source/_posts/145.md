@@ -1,0 +1,197 @@
+---
+title: "「Codeforces Round #418」白金夜话"
+date: 2018-4-12 14:08:21
+categories: 题解
+tags: 
+    - DP
+---
+
+#### 题目描述
+
+>いつまでも止まらない　この胸のときめきで　一緒に踊ろう  
+>随着永不停息的这心中的悸动，一起来跳舞吧！
+
+给定坐标平面上 $n$ 个圆。任意两个圆的边界至多只有一个公共点 —— 即它们必定相离或相切。
+
+对于一个圆的集合，定义其异或面积为平面上被该集合中奇数个圆覆盖的图形面积。
+
+<img src="https://life.wildrage.xyz/wp-content/uploads/2018/04/cf418-1.png" alt="Figure 1" style="display: block; margin: 0 auto;">
+<div style="text-align:center; color:#999;">对于这个集合，浅蓝色部分图形的面积被计入异或面积内。</div>
+
+现在需要将这 $n$ 个圆划分为两个集合，每个圆恰好在两个集合中的一个内。  
+<img src="https://life.wildrage.xyz/wp-content/uploads/2018/04/cf418-2.png" alt="Figure 2" style="display: block; margin: 0 auto;">
+<div style="text-align:center; color:#999;">对于这个集合，浅蓝色部分图形的面积被计入异或面积内。</div>
+
+请求出合法的划分方案中，两个集合分别计算的**异或面积**之和的最大值。
+
+#### 输入格式
+输入的第一行包含一个正整数 $n$ —— 圆的数目。
+
+接下来 $n$ 行，每行包含三个整数 $x\_i, y\_i, r\_i$  —— 描述一个圆心位于 ($x\_i, y\_i$)、半径为 $r\_i$ 的圆。
+
+#### 输出格式
+输出一个十进制实数 —— 合法的划分方案中，两个集合**异或面积**之和的最大值。
+
+当选手答案与参考答案的相对误差或绝对误差不超过 $10^{-9}$ 时被视为正确。形式化地，若选手输出为 $a$，参考答案为 $b$，答案被视为正确当且仅当 $\frac{|a-b|}{\max(1,|b|)} \leq 10^{-9}$。
+
+#### 样例
+##### 样例输入 1
+
+```
+5
+2 1 6
+0 4 1
+2 -1 3
+1 -2 1
+4 -1 1
+```
+
+##### 样例输出 1
+
+```
+138.23007676
+```
+
+##### 样例解释 1
+样例 1 的最优方案与「题目描述」一节中的图形对应。
+
+##### 样例输入 2
+
+```
+8
+0 0 1
+0 0 2
+0 0 3
+0 0 4
+0 0 5
+0 0 6
+0 0 7
+0 0 8
+```
+
+##### 样例输出 2
+
+```
+289.02652413
+```
+
+#### 数据范围与提示
+$1 \leq n \leq 1000$  
+$-10^6 \leq x\_i,y\_i \leq 10^6, 1 \leq r\_i \leq 10^6$
+
+>ささやかだけど　かけがえのない　歴史を重ねて  
+>渺小平凡却无可替代的事物一点点重现着历史  
+>偽りさえも　本当になる　君の隣りで  
+>即使谎言在你身旁也会变得如此真实  
+>　　　　　　　　　　　　　　　　　　——「白金ディスコ」
+
+### 题解
+
+其实不难吧, 但思路还是不错的。  
+
+首先在平面的几何关系不是很好搞， 我们发现题目中保证**必定相离或相切**  
+
+那么圆就只有包含或者相离的关系  
+
+可以抽象成一颗树(森林)。  
+在图中包含他的圆为他的祖先  
+那么我们一个圆的贡献就与他在树上的深度有关
+
+我们现在要把这个森林分成不相交的两部分
+
+考虑 $DP$  
+定义 $F[i][j][k]$ 表示以 $i$ 为根的子树一个集合的深度的奇偶为 $j$ 另一个为集合的深度的奇偶为 $k$ 的最大面积和
+转移的时候先将子树合并  
+在枚举这个点放在哪个集合里  
+
+就完了。。。  
+
+好像还有一个贪心的做法。  
+但我不会啊。 
+
+```c++
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+inline int read()
+{
+    int x=0,f=1;char ch=getchar();
+    while (ch<'0'||ch>'9'){if(ch=='-')f=-1;ch=getchar();}
+    while (ch>='0'&&ch<='9'){x=x*10+ch-'0';ch=getchar();}
+    return x*f;
+}
+const int MAXN = 1005;
+#define dis(_, __) (\
+(((_).x - (__).x) * ((_).x - (__).x)) + \
+(((_).y - (__).y) * ((_).y - (__).y))\
+)
+struct Circle
+{
+    double x, y, r;
+    bool operator < (const Circle &b) const 
+    {
+        return r < b.r;
+    }
+}a[MAXN];
+struct edge
+{
+    int END, next;
+}v[MAXN << 1];
+int first[MAXN], p;
+void add(int a, int b)
+{
+    v[p].END = b;
+    v[p].next = first[a];
+    first[a] = p++;
+}
+bool vis[MAXN];
+double f[MAXN][2][2], tmp[MAXN][2][2];
+void DFS(int rt, int fa)
+{
+    // vis[rt] = 1;
+    for (int i = first[rt]; i != -1; i = v[i].next)
+    {
+        DFS(v[i].END, rt);
+        for (int j = 0; j <= 1; j++)
+            for (int k = 0; k <= 1; k++)
+                tmp[rt][j][k] += f[v[i].END][j][k];
+    }
+    for (int i = 0; i <= 1; i++)
+        for (int j = 0; j <= 1; j++)
+        {
+            f[rt][i][j] = max(
+                tmp[rt][i ^ 1][j] + a[rt].r * a[rt].r * (i == 0 ? 1 : -1),
+                tmp[rt][i][j ^ 1] + a[rt].r * a[rt].r * (j == 0 ? 1 : -1)
+            );
+        }
+}
+int main()
+{
+    memset (first, -1, sizeof (first));
+    int n = read();
+    for (int i = 1; i <= n; i++)
+        a[i].x = read(), a[i].y = read(), a[i].r = read();
+    sort(a + 1, a + n + 1);
+    for (int i = 1; i <= n; i++)
+        for (int j = i + 1; j <= n; j++)
+            if (dis(a[i], a[j]) < a[j].r * a[j].r)
+            {
+                // printf ("%d %d\n", j, i);
+                add(j, i);
+                vis[i] = 1;
+                break;
+            }
+    // while (1);
+    double ans = 0;
+    for (int i = 1; i <= n; i++)
+        if (!vis[i])
+        {
+            DFS(i, 0);
+            ans += f[i][0][0];
+        }
+    printf ("%.15f\n", ans * acos(-1.));
+    // while (1);
+}
+```

@@ -1,0 +1,291 @@
+---
+title: "「CodePlus 2018 3 月赛」白金元首与莫斯科"
+date: 2018-4-13 16:13:05
+categories: 题解
+tags: 
+    - DP
+---
+
+#### 题目描述
+>莫斯科吹的寒风 / 仿佛昨日那场梦 / 啊 你还会记得我吗  
+>
+>1941.12.  
+>
+>寒冷刺骨的天气、疲惫不堪的军队……包围首都的作战计划陷入了困境。空军或许是拯救战况的最后希望了，元首 Adolf 想道。
+
+在一个 $n \times m$ 的网格区域中存在一个陆军单位需要补给，区域中的每个格子为空地或障碍物中的一种。航空舰队需要派遣若干运输机前往此区域，每一架运输机可以向两个相邻（有一条公共边）的空地投放物资。为防止不必要的损坏，一个标记为空地的格子至多只能得到一次投放。
+
+由于天气原因，陆军单位所在的确切位置并不能确定。因此元首想知道，对于每个空地格子，当陆军单位在其中（视作障碍物）时，用若干（可以为 $0$）架运输机向其余空地投放任意数量的物资的不同方案数。两个投放方案不同，当且仅当存在一个格子在一个方案中被投放而另一方案中未被投放，或存在两个被投放的格子，在一个方案中被同一架运输机投放而在另一方案中非然。若仍有疑问，请参考「样例 1 解释」。
+
+你需要编写程序帮助元首计算这些值对 $10^9+7$ 取模的结果。
+
+#### 输入格式
+
+从标准输入读入数据。
+
+- 第 $1$ 行：两个空格分隔的正整数 $n,m$ —— 网格区域的行数和列数。  
+- 接下来 $n$ 行：其中第 $i$ 行包含 $m$ 个空格分隔的整数 $A\_{i1},A\_{i2},\ldots,A\_{im}$ —— 其中 $A\_{ij} = 0$ 表示第 $i$ 行第 $j$ 列的格子为**空地**; $A\_{ij} = 1$表示该格为**障碍物**。 
+
+#### 输出格式
+
+输出到标准输出。
+
+对于每组数据输出 $n$ 行，第 $i$ 行包含 $m$ 个空格分隔的整数 $B\_{i1}, B\_{i2}, \ldots, B\_{im}$ —— 若第 $i$ 行第 $j$ 列的格子为空地, $B\_{ij}$ 为该格变为障碍物后投放的方案数；否则 $B\_{ij} = 0$。 
+
+#### 样例
+##### 样例 1 输入
+```
+2 4
+0 0 0 0
+0 0 0 1
+```
+
+##### 样例 1 输出
+```
+14 13 10 22
+15 11 17 0
+```
+
+##### 样例 1 解释
+以第 $2$ 行第 $1$ 列的空地格为例，其变为障碍物后的网格如下图，其中白色格子代表空地，黑色格子代表障碍物。
+![](https://life.wildrage.xyz/wp-content/uploads/2018/04/loj6301-sample_grid.png)  
+15 种方案如下图所示，不同颜色代表不同运输机的投放位置。
+![](https://life.wildrage.xyz/wp-content/uploads/2018/04/loj6301-sample_ways.png)
+##### 样例 2 输入
+```
+4 5
+0 0 0 1 1
+1 0 0 0 1
+1 0 0 0 0
+0 0 0 0 0
+```
+
+##### 样例 2 输出
+```
+1882 827 1523 0 0
+0 1189 791 1529 0
+0 1106 979 823 1315
+1810 899 1136 1075 1189
+```
+
+#### 数据范围与提示
+
+对于所有数据，有 $1 \leq n, m \leq 17$，$A\_{ij} \in \{0, 1\}$。  
+
+|子任务编号|分值|$n$|$m$|
+|:-:|:-:|:-:|:-:|
+|1|10|$\leq 2$|$\leq 17$|
+|2|8|$\leq 5$|$\leq 5$|
+|3|6|$\leq 9$|$\leq 9$|
+|4|9|$\leq 12$|$\leq 12$|
+|5|17|$\leq 15$|$\leq 15$|
+|6|17|$\leq 16$|$\leq 16$|
+|7|33|$\leq 17$|$\leq 17$|
+
+>“Von allem Anfang an bin ich nur verraten und betrogen worden!”  
+
+题面与史实不尽相符。
+****
+
+来自 CodePlus 2018 3 月赛，清华大学计算机科学与技术系学生算法与竞赛协会 荣誉出品。  
+Credit：idea/吕时清　命题/吕时清　验题/吕欣，王聿中  
+Git Repo：[https://git.thusaac.org/publish/CodePlus3](https://git.thusaac.org/publish/CodePlus3)  
+感谢腾讯公司对此次比赛的支持。  
+
+****
+
+
+### 题解
+
+首先我们可以想到这道题一定是用插头$DP$  
+
+那么我们定义插头的状态 $1$ 为这个方向的格子与它为一架运输机投放  
+然后转移时注意一下合法性就可以了， 很是简单的一道 $DP$  
+这样的话枚举每一个格子为障碍。  
+时间复杂度为 $O(n^2m^22^{m+1})$  
+
+但是这样并不能 $A$ 掉这道题， 事实上， 在 [LibreOJ](https://loj.ac/problem/6301) 它只能拿到 $33$ 分的好成绩。
+
+[33pts](https://loj.ac/submission/89649)  
+
+****
+
+正解  
+我们发现每次只有一个点不同  
+然后我们可以考虑合并。  
+
+我们正反分别进行一次插头$DP$ 将所有的状态储存下来  
+在考虑一个块的时候  
+![](https://life.wildrage.xyz/wp-content/uploads/2018/04/loj6301-sol.jpg)
+
+将正反的 $DP$ 值乘起来就好了  
+需要判断一下合法性  
+
+时间复杂度$O(nm2^{m+1}+nm2^{m+1})$  
+
+没了
+
+```c++
+#include <cstdio>
+#include <stdint.h>
+#include <cstring>
+#include <algorithm>
+using namespace std;
+inline int read()
+{
+    int x=0,f=1;char ch=getchar();
+    while (ch<'0'||ch>'9'){if(ch=='-')f=-1;ch=getchar();}
+    while (ch>='0'&&ch<='9'){x=x*10+ch-'0';ch=getchar();}
+    return x*f;
+}
+const int MAXN = 200000, BASE = 76543;
+const int32_t MOD = 1e9 + 7;
+int f[20][20][(1 << 18) + 1], g[20][20][(1 << 18) + 1];
+int a[20][20], ans[20][20];
+// int tmp[(1 << 18) + 1];
+int DP1(int n, int m)
+{
+    // f[0].clear();
+    int M = (1 << (m + 1)) - 1;
+    f[1][0][0] = 1;
+    // int now = 0;
+    // int Ans = 0;
+    register int32_t k = 0, i, j;
+    for (i = 1; i <= n; i++)
+    {
+        for (j = 1; j <= m; j++)
+        {
+            // now ^= 1;
+            // f[now].clear();
+            for (k = 0; k <= M; k++)
+            {
+                int S = k;
+                int Sum = f[i][j - 1][k];
+                char L = (S >> (j - 1)) & 1, U = (S >> j) & 1;
+                if (a[i][j])
+                {
+                    if (L == 0 && U == 0)
+                        f[i][j][S] = (f[i][j][S] + Sum) % MOD;
+                    continue;
+                }
+                else if (L == 1 && U != 1)
+                {
+                    int nxt = S ^ (1 << (j - 1));
+                    f[i][j][nxt] = (f[i][j][nxt] + Sum) % MOD;
+                }
+                else if (L != 1 && U == 1)
+                {
+                    int nxt = S ^ (1 << j);
+                    f[i][j][nxt] = (f[i][j][nxt] + Sum) % MOD;
+                }
+                else if (L != 1 && U != 1)
+                {
+                    int nxt = S ^ (1 << (j - 1));
+                    if (i != n)
+                        f[i][j][nxt] = (f[i][j][nxt] + Sum) % MOD;
+                    nxt = S ^ (1 << j);
+                    if (j != m) 
+                        f[i][j][nxt] = (f[i][j][nxt] + Sum) % MOD;
+                    f[i][j][S] = (f[i][j][S] + Sum) % MOD;
+                }
+                // if (S == 0)
+                //     Ans += Sum;
+            }
+        }
+        for (int k = 0; k <= M; k++)
+            f[i + 1][0][k << 1] = f[i][m][k];
+        // for (k = 0; k < f[now].p; k++)
+        //     f[now].v[k].Id <<= 1;
+    }
+    return f[n][m][0];
+}
+
+// f->g
+int DP2(int n, int m)
+{
+    // f[0].clear();
+    int M = (1 << (m + 1)) - 1;
+    g[n][m + 1][0] = 1;
+    // int now = 0;
+    // int Ans = 0;
+    register int32_t k = 0, i, j;
+    for (i = n; i >= 1; i--)
+    {
+        for (j = m; j >= 1; j--)
+        {
+            // now ^= 1;
+            // f[now].clear();
+            for (k = 0; k <= M; k++)
+            {
+                int S = k;
+                int Sum = g[i][j + 1][k];
+                char L = (S >> (j - 1)) & 1, U = (S >> j) & 1;
+                if (a[i][j])
+                {
+                    if (L == 0 && U == 0)
+                        g[i][j][S] = (g[i][j][S] + Sum) % MOD;
+                    continue;
+                }
+                else if (L == 1 && U != 1)
+                {
+                    int nxt = S ^ (1 << (j - 1));
+                    g[i][j][nxt] = (g[i][j][nxt] + Sum) % MOD;
+                }
+                else if (L != 1 && U == 1)
+                {
+                    int nxt = S ^ (1 << j);
+                    g[i][j][nxt] = (g[i][j][nxt] + Sum) % MOD;
+                }
+                else if (L != 1 && U != 1)
+                {
+                    int nxt = S ^ (1 << (j - 1));
+                    if (j != 1)
+                        g[i][j][nxt] = (g[i][j][nxt] + Sum) % MOD;
+                    nxt = S ^ (1 << j);
+                    if (i != 1) 
+                        g[i][j][nxt] = (g[i][j][nxt] + Sum) % MOD;
+                    g[i][j][S] = (g[i][j][S] + Sum) % MOD;
+                }
+                // if (S == 0)
+                //     Ans += Sum;
+            }
+        }
+        for (int k = M; k >= 0; k--)
+        // {
+            g[i - 1][m + 1][k >> 1] = g[i][1][k];
+            // printf ("%d %d %d %d\n", k >> 1, k, g[i - 1][m + 1][k >> 1], g[i][1][k]);
+        // }
+        // for (k = 0; k < f[now].p; k++)
+        //     f[now].v[k].Id <<= 1;
+    }
+    return g[1][1][0];
+}
+int main()
+{
+
+    char n = read(), m = read();
+    register int i, j, k;
+    for (i = 1; i <= n; i++)
+        for (j = 1; j <= m; j++)
+            a[i][j] = read();
+    DP1(n, m), DP2(n, m);
+    int M = (1 << (m + 1)) - 1;
+    for (i = 1; i <= n; i++)
+        for (j = 1; j <= m; j++)
+        {
+            if (a[i][j]) continue;
+            int Sum = 0;
+            for (k = 0; k <= M; k++)
+            {
+                char L = (k >> (j - 1)) & 1, U = (k >> j) & 1;
+                if (L == 0 && U == 0)
+                    (Sum += 1ll * f[i][j - 1][k] * g[i][j + 1][k] % MOD) %= MOD;
+            }
+            ans[i][j] = Sum;
+        }
+    for (i = 1; i <= n; i++)
+        for (j = 1; j <= m; j++)
+            printf ("%d%c", ans[i][j], " \n"[j == m]);
+    // while (1);
+}
+```

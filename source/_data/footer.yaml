@@ -1,0 +1,4 @@
+Katex:
+  '<script src="/js/selector.js"></script>
+  <script src="/js/KaTex/katex.min.js"></script>
+  <script src="/js/KaTex/contrib/auto-render.js"></script>'

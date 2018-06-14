@@ -1,0 +1,44 @@
+pipeline:
+  restore-cache:
+    image: wildrage/drone-volume-cache
+    restore: true
+    mount:
+      - ./node_modules
+    volumes:
+      - /tmp/cache:/cache
+  
+  build:
+    image: wildrage/node:6.7.0
+    secrets: [ EMAIL, PUSH, CODING, TOKEN, CODE, GITHUB ] 
+    commands:
+      - npm install
+      - git remote add coding $CODING
+      - git push -u --quiet coding master
+      - git config --global user.email "$EMAIL"
+      - git config --global user.name "WildRage"
+      - mkdir public
+      - cd public
+      - git init
+      #- git remote add origin https://git.wildrage.xyz/WildRage/blog.wildrage.xyz
+      #- 'git pull origin master'
+      #- rm -rf *
+      - cd ..
+      - hexo g
+      - cd public
+      - git add . 
+      - git commit -m "Deployed By Drone CI"
+      #- git remote rm origin
+      - git remote add origin $PUSH
+      - git remote add code $CODE
+      - git remote add github $GITHUB
+      - git push -u --quiet origin master -f
+      - git push --quiet code master -f
+      - git push --quiet github master -f
+      - curl -H 'Content-Type:text/plain' --data-binary @baidu_urls.txt "http://data.zz.baidu.com/urls?site=https://blog.wildrage.xyz&token=$TOKEN"
+  rebuild-cache:
+    image: wildrage/drone-volume-cache
+    rebuild: true
+    mount: 
+      - ./node_modules
+    volumes:
+      - /tmp/cache:/cache
