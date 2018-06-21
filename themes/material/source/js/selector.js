@@ -1,6 +1,6 @@
 renderWithKaTeX = function(e) {
     renderMathInElement(
-        e, options = {
+        e, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false }
