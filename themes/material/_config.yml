@@ -195,6 +195,9 @@ sidebar:
         下载页:
             link: "/downloads.html"
             icon: file_download
+        书签:
+            link: "/bookmark.html"
+            icon: bookmark
         BZOJCH:
             link: "https://bzoj.wildrage.cf"
     homepage:
