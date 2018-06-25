@@ -6,3 +6,4 @@ enc_pwd: wangxiaohui
 ---
 
 [动漫图API](https://cdn.24bp.cn/bk/api/PC.php)
+[神代綺凜の萌化小基地](https://lolico.moe)
