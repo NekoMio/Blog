@@ -251,7 +251,7 @@ sidebar:
 # If you want to use gitment,you should get the client_id and client_secret form https://github.com/settings/applications/new
 # If you want to use valine,you should get the app_id and app_key form https://leancloud.cn ,more setting please see https://github.com/xCss/Valine
 comment:
-    use: disque
+    use: disqus
     shortname: wildrage-blog
     changyan_appid:
     changyan_conf:
