@@ -106,5 +106,5 @@ feed:
 disqus_proxy:
   shortname: wildrage-blog
   username: disqus_SgKsAUQfQ4
-  host: wildrage.xyz
-  port: 8006
+  host: disqus.wildrage.xyz
+  port: 443s
