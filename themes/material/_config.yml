@@ -88,7 +88,7 @@ img:
 #        If you have setup your custom font-family, don't forget to add style tag with @font-face or link.tag with font css to /source/data/head.yml as custom code, to load custom font files.
 fonts:
     family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif
-    use:
+    use: catnet
     custom_font_host:
 
 # Card Elevation Level
@@ -184,7 +184,7 @@ sns_share:
     weibo: true
     linkedin: false
     qq: true
-    telegram: false
+    telegram: true
 
 # Sidebar Customize
 sidebar:
@@ -251,8 +251,8 @@ sidebar:
 # If you want to use gitment,you should get the client_id and client_secret form https://github.com/settings/applications/new
 # If you want to use valine,you should get the app_id and app_key form https://leancloud.cn ,more setting please see https://github.com/xCss/Valine
 comment:
-    use:
-    shortname:
+    use: disque
+    shortname: wildrage-blog
     changyan_appid:
     changyan_conf:
     changyan_thread_key_type: path
