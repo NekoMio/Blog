@@ -1,0 +1,35 @@
+<script>
+    window.disqusProxy={
+      shortname: '<%= config.shortname %>',
+      username: '<%= config.username %>',
+      server: '<%= config.host >',
+      port: 443,
+      adminAvatar: '/avatars/admin-avatar.jpg',
+      identifier: '<%= page.permalink %>',
+    };
+</script>
+<div id="disqus-comment"> 
+<script src="//cdn.bootcss.com/react/16.0.0/umd/react.production.min.js"></script>
+<script src="//cdn.bootcss.com/react-dom/16.0.0/umd/react-dom.production.min.js"></script>
+<script src="//cdn.bootcss.com/fetch/2.0.3/fetch.min.js"></script>
+<script src="/js/blockies.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<div id="disqus_proxy_thread"><script src="/js/hexo-disqus-proxy-primary.js" async></script></div>
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = '<%= page.permalink %>';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = '<%= page.permalink %>'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+<script type="text/ls-javascript" id="disqus-thread-script">
+    queue.offer(function() {
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//wildrage-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            
+        })();
+    });
+</script>
+</div>
