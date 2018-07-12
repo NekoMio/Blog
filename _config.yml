@@ -107,4 +107,4 @@ disqus_proxy:
   shortname: wildrage-blog
   username: disqus_SgKsAUQfQ4
   host: disqus.wildrage.xyz
-  port: 443s
+  port: 443
