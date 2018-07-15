@@ -8,7 +8,7 @@ pipeline:
       - /tmp/cache:/cache
   
   build:
-    image: wildrage/node:6.7.0
+    image: wildrage/node:8.9.3
     secrets: [ EMAIL, PUSH, CODING, TOKEN, CODE, GITHUB ] 
     commands:
       - npm install
