@@ -102,9 +102,3 @@ feed:
   path: rss2.xml 
   limit: false 
   hub:
-
-disqus_proxy:
-  shortname: wildrage-blog
-  username: disqus_SgKsAUQfQ4
-  host: disqus.wildrage.xyz
-  port: 443
