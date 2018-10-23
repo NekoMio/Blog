@@ -70,11 +70,11 @@ disqus_shortname:
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  # - type: git
-  #   message: ""
-  #   repo:
-  #     github: git@github.com:HZoi-WildRage/HZoi-WildRage.github.io.git,master
-  #     coding: git@git.coding.net:WildRage/WildRage.coding.me.git,master
+  - type: git
+    message: ""
+    repo:
+      github: git@github.com:HZoi-WildRage/HZoi-WildRage.github.io.git,master
+      coding: git@git.coding.net:WildRage/WildRage.coding.me.git,master
   # - type: heroku
   #   repo: git@github.com:HZoi-WildRage/heroku-blog
   #   message: ""
