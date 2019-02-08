@@ -3,16 +3,16 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: WildRage's Blog
+title: NekoMio's Blog
 subtitle: 为梦远航
-description: WildRage 的博客 爱这个世界
-author: WildRage
+description: NekoMio 的博客 爱这个世界
+author: NekoMio
 language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://blog.wildrage.xyz
+url: https://nekomio.com
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -73,8 +73,8 @@ deploy:
   - type: git
     message: ""
     repo:
-      github: git@github.com:HZoi-WildRage/HZoi-WildRage.github.io.git,master
-      coding: git@git.coding.net:WildRage/WildRage.coding.me.git,master
+      github: git@github.com:Nekomio/Nekomio.github.io.git,master
+      coding: git@git.dev.tencent.com:WildRage/WildRage.coding.me.git,master
   # - type: heroku
   #   repo: git@github.com:HZoi-WildRage/heroku-blog
   #   message: ""

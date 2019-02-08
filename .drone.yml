@@ -15,7 +15,7 @@ pipeline:
       - git remote add coding $CODING
       - git push -u --quiet coding master -f
       - git config --global user.email "$EMAIL"
-      - git config --global user.name "WildRage"
+      - git config --global user.name "NekoMio"
       - mkdir public
       - cd public
       - git init

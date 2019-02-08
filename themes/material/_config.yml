@@ -190,7 +190,7 @@ sns_share:
 sidebar:
     dropdown:
         Email Me:
-            link: "mailto:i@wildarge.xyz"
+            link: "mailto:hui@nekomio.com"
             icon: email
         下载页:
             link: "/downloads.html"
@@ -198,8 +198,6 @@ sidebar:
         书签:
             link: "/bookmark.html"
             icon: bookmark
-        BZOJCH:
-            link: "https://bzoj.wildrage.cf"
     homepage:
         use: true
         icon: home
