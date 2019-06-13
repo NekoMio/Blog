@@ -103,7 +103,7 @@ copyright_since: 2017
 # You can specify the text you want to show in footer, HTML tag is supported.
 #   For example, you can setup ICP license number as:
 #       '<a href="http://www.miitbeian.gov.cn" rel="nofollow">某ICP备xxxxxxxx号-x</a>'
-footer_text: '<p>CDN Powered by <a href="https://www.upyun.com/"><img alt="upyun_logo" src="/img/upyun_logo.png" style="width: 80px;" /></a></p>'
+footer_text:
 
 # Qrcode for redirect at other device
 #   use: choose which method to generate the qrcode for each posts.
@@ -192,9 +192,6 @@ sidebar:
         Email Me:
             link: "mailto:hui@nekomio.com"
             icon: email
-        下载页:
-            link: "/downloads.html"
-            icon: file_download
         书签:
             link: "/bookmark.html"
             icon: bookmark
