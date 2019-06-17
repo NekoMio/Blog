@@ -18,4 +18,6 @@ addons:
   ssh_known_hosts: git.dev.tencent.com
 script:
   - hexo clean
-  - hexo d -g
+  - hexo g
+  - cp ./_headers ./public/
+  - hexo d

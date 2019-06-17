@@ -74,7 +74,7 @@ deploy:
     message: ""
     repo:
       github: git@github.com:Nekomio/Nekomio.github.io.git,master
-      coding: git@git.dev.tencent.com:WildRage/WildRage.coding.me.git,master
+  #   coding: git@git.dev.tencent.com:WildRage/WildRage.coding.me.git,master
   # - type: heroku
   #   repo: git@github.com:HZoi-WildRage/heroku-blog
   #   message: ""
