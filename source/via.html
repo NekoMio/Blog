@@ -13,13 +13,11 @@ layout: false
 </head>
 
 <style>
-<div id="yiyan" style="
+	<div id="yiyan"style="
 width: 500px;
-background-color:rgba(255, 255, 255, 0);
-">
-<br />
-<br />
-<br />
+	background-color:rgba(255, 255, 255, 0);
+	">
+<br /><br /><br />
 	/*下方这句不动它，翻译开始*/
 
 	* {
@@ -457,7 +455,8 @@ background-color:rgba(255, 255, 255, 0);
 		<br />
 		<div class="search_part">
 			<br /><br /><br /><br /><br /><br /><br /><br /><br />
-			<img class="smaller" src="https://wx3.sinaimg.cn/large/da6ac54fgy1ftvsol0ytmg20oh0b4npe.gif" width=33%></img>
+			<img class="smaller" src="https://wx3.sinaimg.cn/large/da6ac54fgy1ftvsol0ytmg20oh0b4npe.gif"
+				width=33%></img>
 			<form id="search_form" onsubmit="return search()" class="search_bar">
 				<input type="submit" id="search_submit" value="☯">
 				<span><i id="clear" onclick="clear_seach()"></i>
@@ -521,11 +520,10 @@ background-color:rgba(255, 255, 255, 0);
 
 -->
 	<br>
-	<script type="text/javascript" src="https://api.lwl12.com/hitokoto/main/get?encode=js&charset=utf-8"></script>
-	<div id="lwlhitokoto">
+	<script type="text/javascript" src="https://api.lwl12.com/hitokoto/v1?encode=js&charset=utf-8"></script>
+	<span id="lwlhitokoto">
 		<script>lwlhitokoto()</script>
-	</div>
-
+	</span>
 	<!--<div id="yiyan" style="
 width: 500px;
 background-color:rgba(255, 255, 255, 0);
