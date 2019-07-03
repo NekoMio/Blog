@@ -17,6 +17,9 @@ before_install:
 addons:
   ssh_known_hosts: git.dev.tencent.com
 script:
+  - cd ./themes/suka
+  - yarn
+  - cd ../..
   - hexo clean
   - hexo g
   - cp ./_headers ./public/
