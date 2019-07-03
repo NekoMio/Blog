@@ -345,7 +345,7 @@ hanabi:
 #     tab_replace: false
 #
 prettify:
-  enable: true
+  enable: false
   linenumber: true # We prefer to enable for avoiding some pretiffy's bugs.
   # Prettify Theme
   theme: hemisu-light # It will not load any theme if you leave it blank
