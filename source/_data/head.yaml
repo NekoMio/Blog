@@ -1,21 +1,21 @@
 ﻿Katex:
   '<link href="/js/KaTex/katex.min.css" rel="stylesheet">'
 scrollbar:
-  '<style>
-  ::-webkit-scrollbar  
-  {  
-    width: 5px;  
-    height: 8px;  
-    background-color: #B9B9B9;  
-  }  
-  ::-webkit-scrollbar-track  
-  {   
-    border-radius: 10px;  
-    background-color: #B9B9B9;  
-  }
-  ::-webkit-scrollbar-thumb  
-  {  
-    border-radius: 10px;   
-    background-color: #FFB6B9;  
-  }
-  </style>'
+  - '<style>'
+  - '::-webkit-scrollbar'
+  - '{'  
+  - '  width: 5px;'  
+  - '  height: 8px;'  
+  - '  background-color: #B9B9B9;'  
+  - '}'  
+  - '::-webkit-scrollbar-track'  
+  - '{'
+  - '  border-radius: 10px;'  
+  - '  background-color: #B9B9B9;'  
+  - '}'
+  - '::-webkit-scrollbar-thumb'  
+  - '{'  
+  - '  border-radius: 10px;'   
+  - '  background-color: #FFB6B9; ' 
+  - '}'
+  - '</style>'

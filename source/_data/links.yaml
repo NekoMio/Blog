@@ -1,64 +1,64 @@
 WQ: 
-  link: "https://www.cnblogs.com/TSHugh/"
-  avatar: 
-  descr: "大佬"
+  url: "https://www.cnblogs.com/TSHugh/"
+  img: 
+  text: "大佬"
 
 ZZH: 
-  link: "https://www.cnblogs.com/LadyLex/"
-  avatar: "https://images-1254442371.image.myqcloud.com/Blog/avatar/zzh.jpg"
-  descr: "又一个大佬"
+  url: "https://www.cnblogs.com/LadyLex/"
+  img: "https://images-1254442371.image.myqcloud.com/Blog/avatar/zzh.jpg"
+  text: "又一个大佬"
 
 YZH: 
-  link: "https://zhuohao.me"
-  avatar: 
-  descr: "某自己有服务器的壕"
+  url: "https://zhuohao.me"
+  img: 
+  text: "某自己有服务器的壕"
 
 ryf: 
-  link: "https://www.cnblogs.com/Ren-Ivan/"
-  avatar: 
-  descr: "hzoi最帅的ryf"
+  url: "https://www.cnblogs.com/Ren-Ivan/"
+  img: 
+  text: "hzoi最帅的ryf"
 
 zyf_2002: 
-  link: "http://cooook.tk"
-  avatar: "https://images-1254442371.image.myqcloud.com/Blog/avatar/zyf.jpg"
-  descr: 
+  url: "http://cooook.tk"
+  img: "https://images-1254442371.image.myqcloud.com/Blog/avatar/zyf.jpg"
+  text: 
 
 srs: 
-  link: "https://www.cnblogs.com/moyiii-/"
-  avatar: "https://wildrage-cdn.5awo.com/img/20170817094731.png"
-  descr: 
+  url: "https://www.cnblogs.com/moyiii-/"
+  img: "https://wildrage-cdn.5awo.com/img/20170817094731.png"
+  text: 
 
 lc: 
-  link: "http://www.cnblogs.com/Troywar"
-  avatar: 
-  descr: 
+  url: "http://www.cnblogs.com/Troywar"
+  img: 
+  text: 
 
 zgz:
-  link: "https://www.zgz233.xyz"
-  avatar: "https://www.zgz233.xyz/wp-content/uploads/2018/04/QQ%E5%9B%BE%E7%89%8720180425154342.jpg"
-  descr: l1ll5
+  url: "https://www.zgz233.xyz"
+  img: "https://www.zgz233.xyz/wp-content/uploads/2018/04/QQ%E5%9B%BE%E7%89%8720180425154342.jpg"
+  text: l1ll5
 
 std_wxh: 
-  link: "http://www.cnblogs.com/hzoi-wangxh"
-  avatar: 
-  descr: 
+  url: "http://www.cnblogs.com/hzoi-wangxh"
+  img: 
+  text: 
 
 CDQZ_WYS:
-  link: "http://blog.csdn.net/izumi_hanako"
-  avatar: "https://i.loli.net/2017/12/23/5a3e36c2075a0.jpg"
-  descr: CDQZ 的 大佬
+  url: "http://blog.csdn.net/izumi_hanako"
+  img: "https://i.loli.net/2017/12/23/5a3e36c2075a0.jpg"
+  text: 
 
 Doggu: 
-  link: "http://www.cnblogs.com/Doggu/"
-  avatar: 
-  descr: 神犇
+  url: "http://www.cnblogs.com/Doggu/"
+  img: 
+  text: 神犇
 
 yyf:
-  link: "http://www.cnblogs.com/yyf0309"
-  avatar: 
-  descr: 初三的神犇
+  url: "http://www.cnblogs.com/yyf0309"
+  img: 
+  text:
 
 Lazer2001:
-  link: "https://blog.csdn.net/simpsonk/"
-  avatar:
-  descr: JCY
+  url: "https://blog.csdn.net/simpsonk/"
+  img:
+  text: JCY
