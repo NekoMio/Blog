@@ -102,8 +102,8 @@ nav:
   pages:
     #About:
       #link: /about/
-    #Friends:
-      #link: /links/
+    Friends:
+      link: /links/
 
 # SNS Share Switch
 # Used to choose which items will be displayed in share menu.
