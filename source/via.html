@@ -456,7 +456,7 @@ width: 500px;
 		<div class="search_part">
 			<br /><br /><br /><br /><br /><br /><br /><br /><br />
 			<img class="smaller" src="https://wx3.sinaimg.cn/large/da6ac54fgy1ftvsol0ytmg20oh0b4npe.gif"
-				width=33%></img>
+				width=33%>
 			<form id="search_form" onsubmit="return search()" class="search_bar">
 				<input type="submit" id="search_submit" value="☯">
 				<span><i id="clear" onclick="clear_seach()"></i>
@@ -502,8 +502,8 @@ width: 500px;
 		<br>
 		<font color="#303030">
 			<font size="6">―·❀·―</font>
-			<table width="32" border="0">
-				<br>
+			<table width="32" border="0"></table></font>
+        <br>
 	</div>
 
 	<!--
@@ -577,7 +577,7 @@ ajax.onreadystatechange=function()
 
 
 
-	</div>
+	<div>
 	<div class="lwlhitokoto">
 		<script type="text/javascript" src="https://api.yum6.cn/djt/index.php?encode=js"></script>
 		<span></span>
@@ -644,8 +644,9 @@ ajax.onreadystatechange=function()
 		}
 		function search() {
 			if (document.getElementById("search_input").value != "") {
-				window.location.href = "https://m.baidu.com/s?ie=utf-8&rn=30&rsv_enter=0&wd=" + encodeURIComponent(document.getElementById("search_input").value) + "&from=smor&safe=1&snum=1";
-				document.getElementById("search_input").value = "";
+				// window.location.href = "https://m.baidu.com/s?ie=utf-8&rn=30&rsv_enter=0&wd=" + encodeURIComponent(document.getElementById("search_input").value) + "&from=smor&safe=1&snum=1";
+                window.location.href = "https://zjcqoo.github.io/-----https://www.google.com/search?q=" + encodeURIComponent(document.getElementById("search_input").value);
+                document.getElementById("search_input").value = "";
 			} return false;
 		}
 
