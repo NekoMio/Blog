@@ -56,32 +56,31 @@ toc: true
 		1. [Treap](#Treap)
 		1. 红黑树 (RBT)
 		1. [替罪羊树 (SGT)](#替罪羊树)
-	1. 树状数组 (BIT)
-	1. 线段树 (SGM)
-		1. 划分树与归并树
-	1. 并查集 (UFS)
+	1. [树状数组 (BIT)](#树状数组)
+	1. [线段树 (SGM)](#线段树)
+	1. [并查集 (UFS)](#并查集)
 		1. 带权并查集
 		1. 路径压缩
 		1. 按秩合并
-	1. Sparse Table (ST)
-	1. K维树 (KDT)
+	1. [Sparse Table (ST)](#ST)
+	1. [K维树 (KDT)](#KD-Tree)
 	1. 动态树
 		1. 点/边分治树 (DCT)
-		1. Link-Cut Tree (LCT)
+		1. [Link-Cut Tree (LCT)](#LCT)
 		1. 欧拉回路树 (ETT)
 		1. AAA Tree & Top Tree
 	1. 动态图
 1. 图论 (GT)
 	1. 最小生成树
 		1. Prim 算法 (PM)
-		1. Kruskal 算法 (KS)
+        1. Kruskal 算法 (KS)
 			1. Boruvka 算法
 		1. 最小树形图
 			1. 朱-刘算法
 		1. 斯坦纳树
 	1. 最短路径
-		1. dijkstra 算法 (DJ)
-		1. Bellman-Ford 算法 (BFD)
+		1. [dijkstra 算法 (DJ)](#Dijkstra)
+		1. [Bellman-Ford 算法 (BFD)](#SPFA)
 			1. Johnson 算法
 		1. Floyd 算法 (FL)
 	1. 欧拉路&哈密顿路
@@ -136,7 +135,7 @@ toc: true
 		1. [DFT/FFT (FT)](#FFT)
 			1. [NTT](#NTT)
 			1. Bluestein 算法
-		1. 多项式基本运算
+		1. [多项式基本运算](#多项式)
 			1. 多项式除法
 			1. 多项式基本初等函数
 		1. FWT (FWT)
@@ -1094,5 +1093,888 @@ void FFt(const int *a, const int *b, int *res, int n) {
   for (int i = 0; i < N; i++) A[i] = A[i] * B[i] % MOD;
   FFt(A, -1);
   for (int i = 0; i < N; i++) res[i] = A[i];
+}
+```
+
+##### 树状数组
+```c++
+long long Sum[MAXN];
+int Num[MAXN];
+#define lowbit(_) ((_) & (-_))
+void add(int x, int c) {
+  for (int i = x; i <= cnt; i += lowbit(i)) Sum[i] += c, Num[i]++;
+}
+long long Query(int x) {
+  long long ans = 0;
+  for (int i = x; i > 0; i -= lowbit(i))
+    ans += Sum[i];
+  return ans;
+}
+int query(int x) {
+  int ans = 0;
+  for (int i = x; i > 0; i -= lowbit(i))
+    ans += Num[i];
+  return ans;
+}
+```
+
+##### 线段树
+```c++
+const int N = 100005;
+int Sum[N << 2];
+#define lch l, m, rt << 1
+#define rch m + 1, r, rt << 1 | 1
+void Pushup(int rt)
+{
+    Sum[rt] = Sum[rt << 1] + Sum[rt << 1 | 1]; 
+}
+void Update(int x, int c, int l, int r, int rt)
+{
+    if (l == r)
+    {
+        Sum[rt] = c;
+        return;
+    }
+    int m = l + r >> 1;
+    if (x <= m) Update(x, c, lch);
+    else Update(x, c, rch);
+    Pushup(rt);
+}
+void buildtree(int l, int r, int rt)
+{
+    if (l == r)
+    {
+        Sum[rt] = 1;
+        return;
+    }
+    int m = l + r >> 1;
+    buildtree(lch);
+    buildtree(rch);
+    Pushup(rt);
+}
+int find(int w, int l, int r, int rt)
+{
+    if (l == r)
+        return l;
+    int m = l + r >> 1;
+    if (Sum[rt << 1] >= w)
+        return find(w, lch);
+    else
+        return find(w - Sum[rt << 1], rch);
+}
+int Query(int w, int L, int R, int l, int r, int rt)
+{
+    if (L == l && R == r)
+    {
+        if (Sum[rt] < w)
+            return -Sum[rt];
+        return find(w, l, r, rt);
+    }
+    int m = l + r >> 1;
+    if (R <= m)
+        return Query(w, L, R, lch);
+    else if (L > m)
+        return Query(w, L, R, rch);
+    else
+    {
+        int s1 = Query(w, L, m, lch);
+        if (s1 > 0) return s1;
+        int s2 = Query(w + s1, m + 1, R, rch);
+        if (s2 > 0) return s2;
+        return s1 + s2;
+    }    
+}
+int Query_Sum(int L, int R, int l, int r, int rt)
+{
+    if (L == l && R == r)
+        return Sum[rt];
+    int m = l + r >> 1;
+    if (R <= m)
+        return Query_Sum(L, R, lch);
+    if (L > m)
+        return Query_Sum(L, R, rch);
+    return Query_Sum(L, m, lch) + Query_Sum(m + 1, R, rch);
+}
+```
+
+##### 并查集
+```c++
+int find(int x) {
+  if (fa[x] != x) fa[x] = find(fa[x]);
+  return fa[x];
+}
+```
+
+
+##### ST
+```c++
+int Max[(50005 << 1) + 200][16], Min[(50005 << 1) + 200][16];
+
+int QueryMax(int l, int r)
+{
+    if (l > N || r < 0) return -0x3f3f3f3f;
+    if (l <= 0) l = 1;
+    if (r > N) r = N;
+    int k = 0;
+    while ((1 << k) <= (r - l + 1)) k++; k--;
+    return max(Max[l][k], Max[r - (1 << k) + 1][k]);
+}
+
+int QueryMin(int l, int r)
+{
+    if (l > N || r < 0) return 0x3f3f3f3f;
+    if (l <= 0) l = 1;
+    if (r > N) r = N;
+    int k = 0;
+    while ((1 << k) <= (r - l + 1)) k++; k--;
+    return min(Min[l][k], Min[r - (1 << k) + 1][k]);
+}
+int main () {
+    for (int i = 1; i <= 15; i++)
+        for (int j = 1; j <= N; j++)
+        {
+            Max[j][i] = max(Max[j][i - 1], Max[j + (1 << (i - 1))][i - 1]);
+            Min[j][i] = min(Min[j][i - 1], Min[j + (1 << (i - 1))][i - 1]);
+        }
+}
+```
+
+##### KD-Tree
+```c++
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <cmath>
+  
+using namespace std;
+  
+inline int read()
+{
+    int x=0,f=1;char ch=getchar();
+    while (ch<'0'||ch>'9'){if(ch=='-')f=-1;ch=getchar();}
+    while (ch>='0'&&ch<='9'){x=x*10+ch-'0';ch=getchar();}
+    return x*f;
+}
+  
+const int INF = 0x3f3f3f3f;
+const double alpha = 0.756;
+const int MAXN = 5e5 + 5;
+  
+int now;
+  
+struct Point
+{
+    int d[2];
+    int &operator[](const int &x)
+    {
+        return d[x];
+    }
+    inline bool operator < (const Point &x) const
+    {
+        return d[now] == x.d[now] ? d[now ^ 1] < x.d[now ^ 1] : d[now] < x.d[now];
+    }
+}a[MAXN], cur;
+  
+#define dis(_, __) (\
+    int(abs(_[0] - __[0]) + abs(_[1] - __[1]))\
+)
+  
+#define size(_) ((_) ? (_)->s : 0)
+  
+struct Node
+{
+    Node *ch[2];
+    Point v;
+    int s, d;
+    int Max[2], Min[2];
+    Node(Point x)
+    {
+        ch[0] = ch[1] = NULL;
+        v = x;
+        s = 1, d = now;
+        Max[0] = Min[0] = x[0];
+        Max[1] = Min[1] = x[1];
+    }
+    Node(){;}
+    inline bool operator < (const Node &x) const
+    {
+        return v < x.v;
+    }
+    bool IsBad()
+    {
+        return ((size(ch[0]) > s * alpha) || (size(ch[1]) > s * alpha));
+    }
+    void Pushup(Node *x)
+    {
+        if (!x) return;
+        for (int i = 0; i <= 1; i++) Min[i] = min(Min[i], x->Min[i]);
+        for (int i = 0; i <= 1; i++) Max[i] = max(Max[i], x->Max[i]);
+        s += x->s;
+    }
+    int min_dis()
+    {
+        int ans = 0;
+        ans += max(Min[0] - cur[0], 0) + max(cur[0] - Max[0], 0);
+        ans += max(Min[1] - cur[1], 0) + max(cur[1] - Max[1], 0);
+        return ans;
+    }
+}*root;
+  
+inline void Build(Node *&rt, int l, int r, int d = 0)
+{
+    if (l > r) return;
+    int mid = l + r >> 1;
+    now = d;
+    nth_element(a + l, a + mid, a + r + 1);
+    rt = new Node(a[mid]);
+    Build(rt->ch[0], l, mid - 1, d ^ 1);
+    Build(rt->ch[1], mid + 1, r, d ^ 1);
+    rt->s = 1;
+    rt->Pushup(rt->ch[0]);
+    rt->Pushup(rt->ch[1]);
+}
+  
+Node **res;
+  
+inline void Insert(Node *&rt)
+{
+    if (rt == NULL)
+    {
+        rt = new Node(cur);
+        res = NULL;
+        return;
+    }
+    now = rt->d;
+    if (cur < rt->v) Insert(rt->ch[0]);
+    else Insert(rt->ch[1]);
+    rt->s = 1;
+    rt->Pushup(rt->ch[0]);
+    rt->Pushup(rt->ch[1]);
+    if (rt->IsBad()) res = &rt;
+}
+  
+Node *st[MAXN << 1];
+int top = 0;
+  
+inline void Travel(Node *&rt)
+{
+    if (!rt) return;
+    Travel(rt->ch[0]);
+    st[++top] = rt;
+    Travel(rt->ch[1]);
+}
+  
+inline int cmp(const Node *x, const Node *y)
+{
+    return x->v < y->v;
+}
+  
+inline Node *Divide(int l, int r, int d)
+{
+    if (l > r) return NULL;
+    int mid = l + r >> 1;
+    now = d;
+    nth_element(st + l, st + mid, st + r + 1, cmp);
+    Node *rt = st[mid];
+    rt->ch[0] = Divide(l, mid - 1, d ^ 1);
+    rt->ch[1] = Divide(mid + 1, r, d ^ 1);
+    rt->s = 1;
+    rt->Max[0] = rt->Min[0] = rt->v[0];
+    rt->Max[1] = rt->Min[1] = rt->v[1];
+    rt->Pushup(rt->ch[0]);
+    rt->Pushup(rt->ch[1]);
+}
+  
+inline void ReBuild(Node *&rt)
+{
+    top = 0;
+    int d = rt->d;
+    Travel(rt);
+    rt = Divide(1, top, d);
+}
+  
+inline void Insert(Point x)
+{
+    cur = x;
+    Insert(root);
+    if (res != NULL)
+        ReBuild(*res);
+}
+  
+int Min_ans;
+  
+inline void Query(Node *rt)
+{
+    if (!rt) return;
+    // if (rt->min_dis() > Min_ans) return;
+    Min_ans = min(Min_ans, dis(rt->v, cur));
+    int dis_l = rt->ch[0] ? rt->ch[0]->min_dis() : INF;
+    int dis_r = rt->ch[1] ? rt->ch[1]->min_dis() : INF;
+    if (dis_l < dis_r)
+    {
+        Query(rt->ch[0]);
+        if (dis_r < Min_ans) Query(rt->ch[1]);
+    }
+    else
+    {
+        Query(rt->ch[1]);
+        if (dis_l < Min_ans) Query(rt->ch[0]);
+    }
+}
+  
+inline int Query(Point x)
+{
+    cur = x;
+    Min_ans = INF;
+    Query(root);
+    return Min_ans;
+}
+  
+int main()
+{
+    // freopen("1.in", "r", stdin);
+    // freopen("2.out", "w", stdout);
+    int n, m;
+    n = read(), m = read();
+    for (int i = 1; i <= n; i++)
+        a[i][0] = read(), a[i][1] = read();
+    Build(root, 1, n);
+    Point x;
+    while (m--)
+    {
+        int t = read();
+        if (t == 1)
+        {
+            x[0] = read(), x[1] = read();
+            Insert(x);
+        }
+        else
+        {
+            x[0] = read(), x[1] = read();
+            printf ("%d\n", Query(x));
+        }
+    }
+}
+```
+
+##### LCT
+```c++
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+
+using namespace std;
+
+inline int read()
+{
+	int x=0,f=1;char ch=getchar();
+	while (ch<'0'||ch>'9'){if(ch=='-')f=-1;ch=getchar();}
+	while (ch>='0'&&ch<='9'){x=x*10+ch-'0';ch=getchar();}
+	return x*f;
+}
+
+const int MAXN = 10010;
+
+struct Node
+{
+	Node *f, *ch[2];
+	bool IsRoot, Mark;
+	Node()
+	{
+		f = ch[0] = ch[1] = NULL;
+		IsRoot = 1, Mark = 0;
+	}
+}*null, *Q[MAXN];
+Node *NewNode()
+{
+	Node *o = new Node();
+	o->f = o->ch[0] = o->ch[1] = null;
+	return o;
+}
+bool son(Node *rt)
+{
+	return rt->f->ch[1] == rt;
+}
+inline void Pushflip(Node *rt)
+{
+	if (rt == null) return;
+	rt->Mark ^= 1, swap(rt->ch[0], rt->ch[1]);
+}
+inline void Pushdown(Node *rt)
+{
+	if (rt->Mark)
+	{
+		Pushflip(rt->ch[0]);
+		Pushflip(rt->ch[1]);
+		rt->Mark = 0;
+	}
+}
+inline void rotate(Node *rt)
+{
+	if (rt->IsRoot) return;
+	Node *fa = rt->f, *Grand = fa->f;
+	Pushdown(fa), Pushdown(rt);
+	int k = son(rt), kk = son(fa);
+	fa->ch[k] = rt->ch[k ^ 1];
+	if (rt->ch[k ^ 1] != null) rt->ch[k ^ 1]->f = fa;
+	rt->ch[k ^ 1] = fa, fa->f = rt, rt->f = Grand;
+	if (!fa->IsRoot) Grand->ch[kk] = rt;
+	else fa->IsRoot = 0, rt->IsRoot = 1; 
+}
+inline void Clear(Node *rt)
+{
+	if (!rt->IsRoot) Clear(rt->f);
+	Pushdown(rt);
+}
+
+inline void Splay(Node *rt)
+{
+	for (Clear(rt); !rt->IsRoot; rotate(rt))
+		if (!rt->f->IsRoot)
+			rotate(son(rt) == son(rt->f) ? rt->f : rt);
+}
+
+inline void Access(Node *rt)
+{
+	for (Node *pre = null; rt != null; pre = rt, rt = rt->f)
+	{
+		Splay(rt);
+		rt->ch[1]->IsRoot = 1;
+		pre->IsRoot = 0;
+		rt->ch[1] = pre;
+	}
+}
+
+inline void MakeRoot(Node *rt)
+{
+	Access(rt);
+	Splay(rt);
+	Pushflip(rt);
+}
+
+inline void link(Node *a, Node *b)
+{
+	MakeRoot(a);
+	a->f = b;
+}
+
+inline void cut(Node *a, Node *b)
+{
+	MakeRoot(a);
+	Access(b);
+	Splay(b);
+	Pushdown(b);
+	b->ch[0]->IsRoot = 1;
+	b->ch[0]->f = null;
+	b->ch[0] = null;
+}
+
+inline Node* find(Node *rt)
+{
+	if (rt->ch[0] != null) return find(rt->ch[0]);
+	return rt;
+}
+
+inline bool Judge(Node *a, Node *b)
+{
+	while (a->f != null) a = a->f;
+	while (b->f != null) b = b->f;
+	return a == b;
+}
+
+int main()
+{
+	int n = read(), m = read();
+	null = new Node();
+	null->ch[0] = null->ch[1] = null->f = null, null->IsRoot = null->Mark = 0;
+	for (int i = 1; i <= n; i++)
+		Q[i] = NewNode();
+	int a, b;
+	char c[10];
+	while (m--)
+	{
+		scanf ("%s", c);
+		if (c[0] == 'C')
+		{
+			a = read(), b = read();
+			link(Q[a], Q[b]);
+		}
+		else if (c[0] == 'Q')
+		{
+			a = read(), b = read();
+			puts(Judge(Q[a], Q[b]) ? "Yes" : "No");
+		}
+		else
+		{
+			a = read(), b = read();
+			cut(Q[a], Q[b]);
+		}
+	}
+}
+
+```
+
+##### Dijkstra
+```c++
+#include <bits/stdc++.h>
+const int N = 1e6 + 1;
+using namespace std;
+struct edge {
+  int END, next, v;
+} v[N * 2];
+int first[N], p;
+void add(int a, int b, int c) {
+  v[p].END = b;
+  v[p].v = c;
+  v[p].next = first[a];
+  first[a] = p++;
+}
+int n, m, S;
+typedef pair<int, int> T;
+int dis[N];
+int main() {
+  scanf("%d%d%d", &n, &m, &S);
+	memset (first, -1, sizeof (first));
+  for (int i = 1; i <= m; i++) {
+    int x, y, z;
+    scanf("%d%d%d", &x, &y, &z);
+    add(x, y, z);
+  }
+  memset(dis, 0x3f, sizeof(dis));
+  dis[S] = 0;
+  T X;
+  X.first = 0, X.second = S;
+  priority_queue<T, vector<T>, greater<T> > Q;
+  Q.push(X);
+  while (!Q.empty()) {
+    X = Q.top();
+    Q.pop();
+    int x = X.second;
+    if (dis[x] < X.first) continue;
+    for (int i = first[x]; i; i = v[i].next) {
+      int y = v[i].END;
+      if (dis[y] > dis[x] + v[i].v) {
+        dis[y] = dis[x] + v[i].v;
+        X.first = dis[y];
+        X.second = y;
+        Q.push(X);
+      }
+    }
+  }
+  for (int i = 1; i <= n; i++) printf("%d ", dis[i]);
+  return 0;
+}
+
+```
+
+##### SPFA
+```c++
+int dis[N];
+bool flag[N];
+queue<int> q;
+bool Spfa(int x)
+{
+	memset(dis, 0x3f, sizeof (dis));
+	memset(flag, 0, sizeof (flag));
+	dis[x] = 0;
+	flag[x] = 1;
+	q.push(x);
+	while (!q.empty())
+	{
+		int k = q.front();
+		q.pop();
+		flag[k] = 0;
+		for (int i = first[k]; i != -1; i = v[i].next)
+		{
+			if (dis[v[i].END] > dis[k] + v[i].v)
+			{
+				dis[v[i].END] = dis[k] + v[i].v;
+				if (!flag[v[i].END])
+				{
+					flag[v[i].END] = 1;
+					q.push(v[i].END);
+				}
+			}
+		}
+	}
+	return 0;
+}
+```
+
+##### 多项式
+```c++
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+using namespace std;
+const int MAXN = 1e6 * 4;
+const int MOD  = 998244353;
+const int L = (1 << 18) + 1;
+const int LM = (1 << 16) + 1;
+inline int read()
+{
+    int x=0,f=1;char ch=getchar();
+    while (ch<'0'||ch>'9'){if(ch=='-')f=-1;ch=getchar();}
+    while (ch>='0'&&ch<='9'){x=x*10+ch-'0';ch=getchar();}
+    return x*f;
+}
+int N, Inv, rev[MAXN];
+int Sum = 0, n, m;
+struct data
+{
+    int e, f, g, id;
+}s[60005];
+long long pow_mod(long long a, int b)
+{
+    long long ans = 1;
+    while (b)
+    {
+        if (b & 1)
+            ans = ans * a % MOD;
+        b >>= 1;
+        a = a * a % MOD;
+    }
+    return ans;
+}
+int ans[MAXN], cnt;
+void insert(int a, int b, int c, int d, int id)
+{
+    if (b == 0)
+    {
+        ans[id] = ((1ll * a * Sum) + (1ll * c * n)) % MOD * pow_mod(d, MOD - 2) % MOD;
+        return;
+    }
+    s[++cnt].f = (1ll * b * c - 1ll * a * d) % MOD;
+    b = pow_mod(b, MOD - 2);
+    s[cnt].e = 1ll * a * b % MOD, s[cnt].g = 1ll * d * b % MOD;
+    b = 1ll * b * b % MOD; s[cnt].f = 1ll * s[cnt].f * b % MOD;
+    if (s[cnt].f < 0) s[cnt].f += MOD;
+    s[cnt].id = id;
+}
+void Init(int x)
+{
+    N = 1;
+    while (N < (x << 1)) N <<= 1;
+    Inv = pow_mod(N, MOD - 2);
+    for (int i = 1; i < N; i++)
+        if (i & 1)
+            rev[i] = (rev[i >> 1] >> 1) | (N >> 1);
+        else
+            rev[i] = (rev[i >> 1] >> 1);
+}
+inline int Calc(int x)
+{
+    N = 1;
+    while (N < (x << 1)) N <<= 1;
+    return N;
+}
+void FFt(int *a, int op)
+{
+    int w, wn, t;
+    for (int i = 0; i < N; i++)
+        if (i < rev[i])
+            swap(a[i], a[rev[i]]);
+    for (int k = 2; k <= N; k <<= 1)
+    {
+        wn = pow_mod(3, op == 1 ? (MOD - 1) / k : MOD - 1 - (MOD - 1) / k);
+        for (int j = 0; j < N; j += k)
+        {
+            w = 1;
+            for (int i = 0; i < (k >> 1); i++, w = 1ll * w * wn % MOD)
+            {
+                t = 1ll * a[i + j + (k >> 1)] * w % MOD;
+                a[i + j + (k >> 1)] = (a[i + j] - t + MOD) % MOD;
+                a[i + j] = (a[i + j] + t) % MOD;
+            }
+        }
+    }
+    if (op == -1)
+        for (int i = 0; i < N; i++)
+            a[i] = 1ll * a[i] * Inv % MOD;
+}
+int tmp[MAXN], x[MAXN];
+void Get_Inv(int *a, int *b, int n)
+{
+    if (n == 1) return b[0] = pow_mod(a[0], MOD - 2), void();
+    Get_Inv(a, b, n + 1 >> 1);
+    Init(n);
+    for (int i = 0; i < n; i++) tmp[i] = a[i];
+    for (int i = n; i < N; i++) tmp[i] = 0;
+    FFt(tmp, 1), FFt(b, 1);
+    for (int i = 0; i < N; i++) 
+        b[i] = 1ll * b[i] * ((2 - 1ll * b[i] * tmp[i] % MOD + MOD) % MOD) % MOD;
+    FFt(b, -1);
+    for (int i = n; i < N; i++) b[i] = 0;
+}
+int Get_mod(int *a, int ra, int *b, int rb, int *c)
+{
+    while (ra && !a[ra - 1]) --ra;
+    while (rb && !b[rb - 1]) --rb;
+    if (ra < rb)
+    {
+        memcpy (c, a, ra << 2);
+        memset (c + ra, 0, (rb - ra) << 2);
+        return rb;
+    }
+    static int tmp1[MAXN], tmp2[MAXN];
+    int rc = ra - rb + 1;
+    int l = Calc(rc);
+    for (int i = 0; i < l; i++) tmp1[i] = 0;
+    reverse_copy(b, b + rb, tmp1);
+    for (int i = 0; i < l; i++) tmp2[i] = 0; 
+    Get_Inv(tmp1, tmp2, rc);
+    for (int i = rc; i < l; i++) tmp2[i] = 0;
+    reverse_copy(a, a + ra, tmp1);
+    for (int i = rc; i < l; i++) tmp1[i] = 0;
+    Init(rc), FFt(tmp1, 1), FFt(tmp2, 1);
+    for (int i = 0; i < N; i++) tmp1[i] = 1ll * tmp1[i] * tmp2[i] % MOD;
+    FFt(tmp1, -1); 
+    reverse(tmp1, tmp1 + rc); 
+    Init(ra);
+    for (int i = 0; i < rb; i++) tmp2[i] = b[i];
+    for (int i = rb; i < N; i++) tmp2[i] = 0;
+    for (int i = rc; i < N; i++) tmp1[i] = 0;
+    FFt(tmp1, 1), FFt(tmp2, 1);
+    for (int i = 0; i < N; i++) tmp1[i] = 1ll * tmp1[i] * tmp2[i] % MOD;
+    FFt(tmp1, -1);
+    for (int i = 0; i < rb; i++) c[i] = (a[i] - tmp1[i] + MOD) % MOD;
+    for (int i = rb; i < N; i++) c[i] = 0;
+    while (rb && !c[rb - 1]) --rb;
+    return rb;
+}
+int Solve0(int *a, int l, int r)
+{
+    int ra = r - l + 2;
+    if (ra <= 256)
+    {
+        memset(a, 0, ra << 2), a[0] = 1;
+        for (int i = l; i <= r; i++)
+            for (int v = x[i], j = i - l; j != -1; j--)
+            {
+                a[j + 1] = (a[j + 1] + a[j]) % MOD;
+                a[j] = 1ll * a[j] * v % MOD;
+            }
+        return ra;
+    }
+    int mid = l + r >> 1;
+    int *f1 = a, r1 = Solve0(f1, l, mid);
+    int *f2 = a + r1, r2 = Solve0(f2, mid + 1, r);
+    N = 1;
+    while (N < ra) N <<= 1;
+    Inv = pow_mod(N, MOD - 2);
+    for (int i = 1; i < N; i++)
+        if (i & 1)
+            rev[i] = (rev[i >> 1] >> 1) | (N >> 1);
+        else
+            rev[i] = (rev[i >> 1] >> 1);
+    static int tmp1[L], tmp2[L];
+    memcpy(tmp1, f1, r1 << 2), memset (tmp1 + r1, 0, (N - r1) << 2), FFt(tmp1, 1);
+    memcpy(tmp2, f2, r2 << 2), memset (tmp2 + r2, 0, (N - r2) << 2), FFt(tmp2, 1);
+    for (int i = 0; i < N; i++) a[i] = 1ll * tmp1[i] * tmp2[i] % MOD;
+    FFt(a, -1);
+    return ra;
+}
+int *p[L];
+int sta[MAXN];
+int mem[LM << 4], *head = mem;
+inline int Solve1(int id, int l, int r)
+{
+    int ra = r - l + 2;
+    if (ra <= 256)
+    {
+        int *f = p[id] = head; head += ra;
+        memset (f, 0, ra << 2), 0[f] = 1;
+        for (int i = l; i <= r; i++)
+            for (int v = (MOD - sta[i]) % MOD, j = i - l; j != -1; j--)
+                f[j + 1] = (f[j + 1] + f[j]) % MOD, f[j] = 1ll * f[j] * v % MOD;
+        return ra;
+    }
+    int mid = l + r >> 1;
+    int r1 = Solve1(id << 1, l, mid), *f1 = p[id << 1];
+    int r2 = Solve1(id << 1 | 1, mid + 1, r), *f2 = p[id << 1 | 1];
+    N = 1;
+    while (N < ra) N <<= 1;
+    Inv = pow_mod(N, MOD - 2);
+    for (int i = 1; i < N; i++)
+        if (i & 1)
+            rev[i] = (rev[i >> 1] >> 1) | (N >> 1);
+        else
+            rev[i] = (rev[i >> 1] >> 1);
+    static int tmp1[LM], tmp2[LM];
+    memcpy(tmp1, f1, r1 << 2), memset (tmp1 + r1, 0, (N - r1) << 2), FFt(tmp1, 1);
+    memcpy(tmp2, f2, r2 << 2), memset (tmp2 + r2, 0, (N - r2) << 2), FFt(tmp2, 1);
+    int *f = p[id] = head; head += ra;
+    for (int i = 0; i < N; i++) f[i] = 1ll * tmp1[i] * tmp2[i] % MOD;
+    FFt(f, -1);
+    return ra; 
+}
+int val0[LM], val[LM];
+void Solve2(int id, int *a, int *b, int l, int r, int deg)
+{
+    int ra = r - l + 2;
+    if (deg <= 256)
+    {
+        int F, G;
+        for (int i = l; i <= r; i++)
+        {
+            F = G = 0;
+            int u = sta[i], v = 1;
+            for (int j = 0; j <= deg; j++)
+            {
+                F = (F + 1ll * v * a[j]) % MOD;
+                G = (G + 1ll * v * b[j]) % MOD;
+                v = 1ll * v * u % MOD;
+            }
+            val0[i] = F, val[i] = G;
+        }
+        return;
+    }
+    int mid = l + r >> 1;
+    int r1 = Get_mod(a, deg, p[id], ra, a + deg); a += deg;
+    int r2 = Get_mod(b, deg, p[id], ra, b + deg); b += deg;
+    ra = min(r1, r2);
+    Solve2(id << 1, a, b, l, mid, ra), Solve2(id << 1 | 1, a, b, mid + 1, r, ra);
+}
+int g[MAXN], h[MAXN];
+int main()
+{
+    n = read(), m = read();
+    Sum = 0;
+    for (int i = 1; i <= n; i++)
+        x[i] = read() % MOD, Sum = (Sum + x[i]) % MOD;
+    int A = 1, B = 0, C = 0, D = 1;
+    for (int i = 1; i <= m; i++)
+    {
+        if (read() == 1)
+        {
+            int v = read() % MOD;
+            A = (A + 1ll * v * B % MOD) % MOD;
+            C = (C + 1ll * v * D % MOD) % MOD;
+            insert(A, B, C, D, i);
+        }
+        else
+        {
+            swap(A, B);
+            swap(C, D);
+            insert(A, B, C, D, i);
+        }
+    }
+    if (cnt)
+    {
+        for (int i = 1; i <= cnt; i++) sta[i] = s[i].g;
+        sort(sta + 1, sta + cnt + 1);
+        int lenth = unique(sta + 1, sta + cnt + 1) - sta - 1;
+        for (int i = 1; i <= cnt; i++)
+            s[i].g = lower_bound(sta + 1, sta + lenth + 1, s[i].g) - sta;
+        Solve0(g, 1, n);
+        for (int i = 1; i <= n; i++) h[i - 1] = 1ll * g[i] * i % MOD;
+        Solve1(1, 1, lenth);
+        Solve2(1, g, h, 1, lenth, n + 1);
+        for (int i = 1; i <= cnt; i++)
+            ans[s[i].id] = (1ll * s[i].e * n % MOD + 1ll * s[i].f * val[s[i].g] % MOD * pow_mod(val0[s[i].g], MOD - 2) % MOD) % MOD;
+    }
+    for (int i = 1; i <= m; i++)
+        printf ("%d\n", ans[i]);
+    // while (1);
 }
 ```
