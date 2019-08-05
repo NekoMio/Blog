@@ -127,7 +127,7 @@ toc: true
 		1. Simpson 积分算法
 	1. 线性代数
 		1. 矩阵基础
-			1. 高斯消元
+			1. [高斯消元](#高斯消元)
 			1. 拟阵
 			1. Matrix-Tree 定理
 			1. 线性递推
@@ -151,7 +151,7 @@ toc: true
 		1. 欧拉定理
 		1. 二次剩余
 		1. 原根及离散对数
-			1. BSGS
+			1. [BSGS](#BSGS&exBSGS)
 		1. lucas 定理
 	1. 质数与简单数论函数
 		1. 埃氏筛
@@ -1976,5 +1976,155 @@ int main()
     for (int i = 1; i <= m; i++)
         printf ("%d\n", ans[i]);
     // while (1);
+}
+```
+
+##### 高斯消元
+```c++
+long long gauss(int n)
+{
+    long long ans = 1;
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= n; j++)
+            a[i][j] = (a[i][j] + MOD) % MOD;
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = i + 1; j <= n; j++)
+            while (a[j][i])
+            {
+                int t = a[i][i] / a[j][i];
+                for (int k = i; k <= n; k++)
+                {
+                    a[i][k] = (a[i][k] - a[j][k] * t % MOD + MOD) % MOD;
+                    swap(a[i][k], a[j][k]);
+                }
+                ans = (MOD - ans) % MOD;
+            }
+        ans = ans * a[i][i] % MOD;
+    }
+    return ans;
+}
+
+
+
+void gauss() {
+  int im, num = 1;
+  for (int k = 1; k <= n; k++, num++) {
+    im = k;
+    for (int i = k + 1; i <= n; i++) {
+      if (fabs(a[i][k]) > fabs(a[im][k])) i = im;
+    }
+    if (im != k) {
+      for (int i = k; i <= n + 1; i++) swap(a[num][i], a[im][i]);
+    }
+    if (!a[num][k]) {
+      num--;
+      continue;
+    }
+    for (int i = num + 1; i <= n; i++) {
+      if (!a[num][k]) continue;
+      long double t = a[i][k] / a[num][k];
+      for (int j = k; j <= n + 1; j++) {
+        a[i][j] -= t * a[k][j];
+      }
+    }
+  }
+  for (int i = n; i >= 1; i--) {
+    for (int j = n; j >= i + 1; j--) {
+      a[i][n + 1] -= a[i][j] * x[j];
+    }
+    x[i] = a[i][n + 1] / a[i][i];
+    sum += x[i];
+  }
+}
+```
+
+#### BSGS&exBSGS
+
+```c++
+int pow_mod(int a, int b, int c)
+{
+    int ans = 1;
+    while (b)
+    {
+        if (b & 1) ans = ans * a % c;
+        b >>= 1;
+        a = a * a % c;
+    }
+    return ans;
+}
+struct Hash_Table
+{
+    struct edge
+    {
+        int next, x, ans;
+    }v[100005];
+    int first[76545], p;
+    int &operator[](int x)
+    {
+        int H = x % 76543;
+        for (int i = first[H]; i != -1; i = v[i].next)
+            if (v[i].x == x)
+                return v[i].ans;
+        v[p].x = x;
+        v[p].next = first[H];
+        first[H] = p++;
+        return v[p - 1].ans = 0;
+    }
+    bool count(int x)
+    {
+        int H = x % 76543;
+        for (int i = first[H]; i != -1; i = v[i].next)
+            if (v[i].x == x)
+                return 1;
+        return 0;
+    }
+    void clear()
+    {
+        memset (first, -1, sizeof (first));
+        p = 0;
+    }
+}Hash;
+int gcd(int a, int b)
+{
+    return b == 0 ? a : gcd(b, a % b);
+}
+int BSGS(int a, int b, int c, int d)
+{
+    Hash.clear();
+    int m = floor(sqrt(c)) + 1;
+    for (int i = 0; i <= m; i++)
+    {
+        // if (!Hash.count(b)) 
+        Hash[b] = i;
+        b = b * a % c;
+    }
+    int s = pow_mod(a, m, c);
+    for (int i = 1; i <= m; i++)
+    {
+        d = d * s % c;
+        if (Hash.count(d)) return i * m - Hash[d];
+    }
+    return -1;
+}
+int exBSGS(int a, int b, int c)
+{
+    b %= c;
+    int s = 1;
+    for (int i = !a; i <= 40; i++)
+    {
+        if (s == b) return i;
+        s = s * a % c;
+    }
+    int cnt = 0, d = 1;
+    for (int i; (i = gcd(a, c)) != 1; cnt++)
+    {
+        if (b % i) return -1;
+        b /= i, c /= i;
+        d = d * a / i % c;
+    }
+    int ret = BSGS(a, b, c, d);
+    if (ret == -1) return -1;
+    return ret + cnt;
 }
 ```
