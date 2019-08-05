@@ -192,7 +192,7 @@ toc: true
 1. 形式语言，自动机与串处理 (FAS)
 	1. 串处理 (STR)
 		1. 模式匹配
-			1. KMP 算法 (KMP)
+			1. [KMP 算法 (KMP) && EXKMP](#KMP&EXKMP)
 			1. AC 自动机
 			1. Shift-And 算法
 		1. 字典树 (TRI)
@@ -2126,5 +2126,52 @@ int exBSGS(int a, int b, int c)
     int ret = BSGS(a, b, c, d);
     if (ret == -1) return -1;
     return ret + cnt;
+}
+```
+
+##### KMP&EXKMP
+```c++
+long long nxt[MAXN], pre[MAXN], extend[MAXN];
+char w[MAXN], t[MAXN];
+void KMP(char *s, int n) {
+  for (int i = 2, k; i <= n; i++) {
+    k = nxt[i - 1];
+    while (k && s[i] != s[k + 1]) k = nxt[k];
+    if (s[i] == s[k + 1]) nxt[i] = k + 1;
+    else nxt[i] = 0;
+  }
+}
+void Get_Extend(char *s, int n) {
+  pre[1] = n;
+  pre[2] = 1;
+  while (s[pre[2]] == s[pre[2] + 1] && pre[2] + 1 <= n) pre[2]++;
+  pre[2]--;
+  int P_pos = 2;
+  for (int i = 3; i <= n; i++) {
+    if (pre[i - P_pos + 1] + i < pre[P_pos] + P_pos) pre[i] = pre[i - P_pos + 1];
+    else {
+      pre[i] = pre[P_pos] + P_pos - i;
+      if (pre[i] < 0) pre[i] = 0;
+      while (s[pre[i] + 1] == s[pre[i] + i] && i + pre[i] <= n) pre[i]++;
+      P_pos = i;
+    }
+  }
+}
+void Match(char *s, char *t) {
+  int m = strlen(s + 1), n = strlen(t);
+  Get_Extend(t, n);
+  extend[1] = 1;
+  while (s[extend[1]] == t[extend[1]] && extend[1] <= n) extend[1]++;
+  extend[1]--;
+  int P_pos = 1;
+  for (int i = 2; i <= m; i++) {
+    if (pre[i - P_pos + 1] + i < extend[P_pos] + P_pos) extend[i] = pre[i - P_pos + 1];
+    else {
+      extend[i] = P_pos + extend[P_pos] - i;
+      if (extend[i] < 0) extend[i] = 0;
+      while (t[extend[i] + 1] == s[i + extend[i]] && i + extend[i] <= m && extend[i] <= n) extend[i]++;
+      P_pos = i;
+    }
+  }
 }
 ```
