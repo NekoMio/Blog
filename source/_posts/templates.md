@@ -155,14 +155,14 @@ toc: true
 		1. lucas 定理
 	1. 质数与简单数论函数
 		1. 埃氏筛
-		1. 欧拉筛
+		1. [欧拉筛](#线性筛)
 		1. 莫比乌斯反演
 		1. 数论函数快速求和
-			1. 杜教筛
+			1. [杜教筛](#杜教筛)
 			1. 洲阁筛
 		1. 素性测试
-			1. Miller-Robin (MR)
-			1. Pollard's Rho 因子分解
+			1. [Miller-Robin (MR)](#Miller_Robin)
+			1. [Pollard's Rho 因子分解](#Miller_Robin)
 1. 组合计数 (CE)
 	1. 计数原理
 		1. 容斥原理
@@ -2039,8 +2039,7 @@ void gauss() {
 }
 ```
 
-#### BSGS&exBSGS
-
+##### BSGS&exBSGS
 ```c++
 int pow_mod(int a, int b, int c)
 {
@@ -2173,5 +2172,179 @@ void Match(char *s, char *t) {
       P_pos = i;
     }
   }
+}
+```
+
+##### 线性筛
+```c++
+const int MAXN = 50000;
+int prime[MAXN + 2], mu[MAXN + 2], Sum_mu[MAXN + 2], d[MAXN + 2], e[MAXN + 2], cnt;
+long long Sum_d[MAXN + 2];
+bool isnprime[MAXN + 2];
+void Get_d()
+{
+    mu[1] = 1, d[1] = 1, isnprime[1] = 1;
+    for (int i = 2; i <= MAXN; i++)
+    {
+        if (!isnprime[i])
+        {
+            prime[++cnt] = i;
+            e[i] = 1;
+            d[i] = 2;
+            mu[i] = -1;
+        }
+        for (int j = 1; j <= cnt; j++)
+        {
+            if (i * prime[j] > MAXN) break;
+            isnprime[i * prime[j]] = 1;
+            if (i % prime[j] == 0)
+            {
+                mu[i * prime[j]] = 0;
+                d[i * prime[j]] = d[i] / (e[i] + 1) * (e[i] + 2);
+                e[i * prime[j]] = e[i] + 1; 
+                break;
+            }
+            mu[i * prime[j]] = -mu[i];
+            d[i * prime[j]] = d[i] * 2;
+            e[i * prime[j]] = 1;
+        }
+    }
+    for (int i = 1; i <= MAXN; i++)
+    {
+        Sum_mu[i] = Sum_mu[i - 1] + mu[i];
+        Sum_d[i] = Sum_d[i - 1] + d[i];
+    }
+}
+```
+
+##### 杜教筛
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+struct Hash_Table {
+  struct edge {
+    long long x;
+    int ans, next;
+  }v[100005];
+  int first[76545], p;
+  Hash_Table() {
+    memset (first, -1, sizeof (first));
+    p = 0;
+  }
+  int &operator[] (const long long &x) {
+    int H = x % 76543;
+    for (int i = first[H]; i != -1; i = v[i].next) {
+      if (v[i].x == x)
+        return v[i].ans;
+    }
+    v[p].x= x;
+    v[p].next = first[H];
+    first[H] = p++;
+    return v[p - 1].ans = 0;
+  }
+  bool count(const long long &x) {
+    int H = x % 76543;
+    for (int i = first[H]; i != -1; i = v[i].next) {
+      if (v[i].x == x)
+        return 1;
+    }
+    return 0;
+  }
+}mp;
+const int MAXN = 1e6;
+bool isnprime[MAXN + 5];
+int mu[MAXN + 5], prime[MAXN + 5], cnt;
+void Get_Prime() {
+  mu[1] = 1, isnprime[1] = 1;
+  for (int i = 2; i <= MAXN; i++) {
+    if (!isnprime[i]) prime[++cnt] = i, mu[i] = -1;
+    for (int j = 1; j <= cnt; j++) {
+      if (i * prime[j] > MAXN) break;
+      isnprime[i * prime[j]] = 1;
+      if (i % prime[j] == 0) {
+        mu[i * prime[j]] = 0;
+        break;
+      } else {
+        mu[i * prime[j]] = -mu[i];
+      }
+    }
+  }
+  for (int i = 1; i <= MAXN; i++)
+    mu[i] += mu[i - 1];
+}
+int Mu(long long x) {
+  if (x <= MAXN) return mu[x];
+  if (mp.count(x)) return mp[x];
+  int &ans = mp[x] = 1;
+  long long nxt = 1;
+  for (long long i = 2; i <= x; i = nxt + 1) {
+    nxt = x / (x / i);
+    ans -= (nxt - i + 1) * Mu(x / i);
+  }
+  return ans;
+}
+int main() {
+  Get_Prime();
+  long long a, b;
+  cin >> a >> b;
+  cout << Mu(b) - Mu(a - 1) << endl;
+}
+```
+
+##### Miller_Robin
+```c++
+long long tmp[100];
+int tot;
+int prime[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29};
+long long mul(long long a, long long b, long long z) {
+  return (a * b - (long long)(((long double)a * b + 0.5) / (long double)z) * z + z) % z;
+}
+long long pow_mod(long long a, long long b, long long p) {
+  a %= p;
+  long long ans = 1;
+  while (b) {
+    if (b & 1) ans = mul(ans, a, p);
+    b >>= 1;
+    a = mul(a, a, p);
+  }
+  return ans;
+}
+bool Miller_Rabin(long long x) {
+  if (x == 1) return 0;
+  for (int i = 0; i <= 9; ++i) {
+    if (x == prime[i]) return 1;
+    if (x % prime[i] == 0) return 0;
+  }
+  long long y = x - 1;
+  int k = 0;
+  for (; !(y & 1); y >>= 1) k++;
+  for (int i = 0; i < 10; ++i) {
+    long long z = rand() % (x - 1) + 1;
+    long long c = pow_mod(z, y, x), d;
+    for (int j = 0; j < k; ++j, c = d)
+      if ((d = mul(c, c, x)) == 1 && c != 1 && c != x - 1)
+        return 0;
+    if (d != 1) return 0;
+  }
+  return 1;
+}
+long long Pollard_Rho(long long x, int y) {
+  long long i = 1, k = 2, c = rand() % (x - 1) + 1;
+  long long d = c;
+  while (1) {
+    i++;
+    c = (mul(c, c, x) + y) % x;
+    long long g = __gcd((d - c + x) % x, x);
+    if (g != 1 && g != x) return g;
+    if (c == d) return x;
+    if (i == k) d = c, k <<= 1;
+  }
+}
+void Divide(long long x, int c) {
+  if (x == 1) return;
+  if (Miller_Rabin(x)) return tmp[++tot] = x, void();
+  long long z = x, tp = c;
+  while (z >= x) z = Pollard_Rho(z, c--);
+  Divide(z, tp), Divide(x / z, tp);
 }
 ```
