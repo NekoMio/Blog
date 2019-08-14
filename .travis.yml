@@ -23,4 +23,5 @@ script:
   - hexo clean
   - hexo g
   - cp ./_headers ./public/
+  - cp ./aria2.html ./public/
   - hexo d
