@@ -8,7 +8,7 @@
   "dependencies": {
     "express": "^4.16.2",
     "hexo": "^3.2.0",
-    "hexo-deployer-git": "^0.3.0",
+    "hexo-deployer-git": "^2.0.0",
     "hexo-encrypt": "^0.5.4",
     "hexo-excerpt-block": "^0.1.0",
     "hexo-generator-archive": "^0.1.4",
@@ -22,7 +22,7 @@
     "hexo-helper-qrcode": "^1.0.2",
     "hexo-reading-time": "^1.0.3",
     "hexo-renderer-ejs": "^0.2.0",
-    "hexo-renderer-marked": "^0.2.2",
+    "hexo-renderer-marked": "^2.0.0",
     "hexo-renderer-stylus": "^0.3.1",
     "hexo-server": "^0.2.0"
   }
