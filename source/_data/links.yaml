@@ -1,8 +1,3 @@
-WQ: 
-  url: "https://www.cnblogs.com/TSHugh/"
-  img: 
-  text: "大佬"
-
 ZZH: 
   url: "https://www.cnblogs.com/LadyLex/"
   img: "https://images-1254442371.image.myqcloud.com/Blog/avatar/zzh.jpg"
@@ -18,19 +13,9 @@ ryf:
   img: 
   text: "hzoi最帅的ryf"
 
-zyf_2002: 
-  url: "http://cooook.tk"
-  img: "https://images-1254442371.image.myqcloud.com/Blog/avatar/zyf.jpg"
-  text: 
-
 srs: 
   url: "https://www.cnblogs.com/moyiii-/"
   img: "https://wildrage-cdn.5awo.com/img/20170817094731.png"
-  text: 
-
-lc: 
-  url: "http://www.cnblogs.com/Troywar"
-  img: 
   text: 
 
 zgz:
@@ -38,27 +23,12 @@ zgz:
   img: "https://www.zgz233.xyz/wp-content/uploads/2018/04/QQ%E5%9B%BE%E7%89%8720180425154342.jpg"
   text: l1ll5
 
-std_wxh: 
-  url: "http://www.cnblogs.com/hzoi-wangxh"
-  img: 
-  text: 
-
-CDQZ_WYS:
-  url: "http://blog.csdn.net/izumi_hanako"
-  img: "https://i.loli.net/2017/12/23/5a3e36c2075a0.jpg"
-  text: 
-
-Doggu: 
-  url: "http://www.cnblogs.com/Doggu/"
-  img: 
-  text: 神犇
-
-yyf:
-  url: "http://www.cnblogs.com/yyf0309"
-  img: 
-  text:
-
 Lazer2001:
   url: "https://blog.csdn.net/simpsonk/"
   img:
   text: JCY
+
+Al0ha0e:
+  url: "https://al0ha0e.github.io"
+  img: "https://i.loli.net/2019/09/11/p19dzyS3EtrWN4C.jpg"
+  text: 
