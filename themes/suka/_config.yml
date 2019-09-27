@@ -185,8 +185,8 @@ comment:
     client_id:
     client_secret:
   valine:
-    leancloud_appId:  hRRi8jRRJiMaKCoOeToz8Geo-gzGzoHsz # leancloud application app id
-    leancloud_appKey: 1gTOBrBAIYbj2urmHJfu5gcl # leancloud application app key
+    leancloud_appId:  LPlK9NbU57chCTHmcu8gePoF-MdYXbMMI # leancloud application app id
+    leancloud_appKey: BUdDBWDYPSvwytMETPWo06Pd # leancloud application app key
     notify: false # valine mail notify (true/false) https://github.com/xCss/Valine/wiki
     verify: false # valine verify code (true/false)
     pageSize: 10 # comment list page size
