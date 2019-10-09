@@ -61,11 +61,11 @@ footer:
   # Footer Text
   # You can specify the text you want to show in footer, HTML tag is supported.
   # For example, you can setup ICP license number as:
-  #   custom_text: '<a href="http://www.miitbeian.gov.cn" rel="nofollow noopener noreferrer">某ICP备xxxxxxxx号-x</a>'
+  #   custom_text: '<a href="http://www.beian.miit.gov.cn" rel="nofollow noopener noreferrer">某ICP备xxxxxxxx号-x</a>'
   # Another example, you can setup 'Hosted on Coding Pages' as:
   #   custom_text: 'Hosted on <a href="https://pages.coding.me" rel="nofollow noopener noreferrer">Coding Pages</a>'
   # Muilt line footer text is supported.
-  custom_text: '<a href="http://www.miitbeian.gov.cn" rel="nofollow noopener noreferrer">京ICP备19044785号-1</a>'
+  custom_text: '<a href="http://www.beian.miit.gov.cn" rel="nofollow noopener noreferrer">京ICP备19044785号-1</a>'
 
 # ---------------------------------------------------------------
 # Customize Settings
