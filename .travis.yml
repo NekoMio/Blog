@@ -4,24 +4,25 @@ branches:
   only:
   - master
 node_js:
-  - 10.16.0
+- 10.16.0
 before_install:
-  - openssl aes-256-cbc -K $encrypted_0011703554c0_key -iv $encrypted_0011703554c0_iv -in .travis/id_rsa.enc -out ~/.ssh/id_rsa -d
-  - chmod 600 ~/.ssh/id_rsa
-  - eval $(ssh-agent)
-  - ssh-add ~/.ssh/id_rsa
-  - cp .travis/ssh_config ~/.ssh/config
-  - git config --global user.name 'NekoMio'
-  - git config --global user.email 'wildrage@163.com'
-  - npm install hexo-cli -g
+- openssl aes-256-cbc -K $encrypted_d3759803d8a1_key -iv $encrypted_d3759803d8a1_iv
+  -in .travis/travis.enc -out ~/.ssh/id_rsa -d
+- chmod 600 ~/.ssh/id_rsa
+- eval $(ssh-agent)
+- ssh-add ~/.ssh/id_rsa
+- cp .travis/ssh_config ~/.ssh/config
+- git config --global user.name 'NekoMio'
+- git config --global user.email 'wildrage@163.com'
+- npm install hexo-cli -g
 addons:
   ssh_known_hosts: git.dev.tencent.com
 script:
-  - cd ./themes/suka
-  - yarn
-  - cd ../..
-  - hexo clean
-  - hexo g
-  - cp ./_headers ./public/
-  - cp ./aria2.html ./public/
-  - hexo d
+- cd ./themes/suka
+- yarn
+- cd ../..
+- hexo clean
+- hexo g
+- cp ./_headers ./public/
+- cp ./aria2.html ./public/
+- hexo d
