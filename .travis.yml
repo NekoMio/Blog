@@ -16,7 +16,9 @@ before_install:
 - git config --global user.email 'wildrage@163.com'
 - npm install hexo-cli -g
 addons:
-  ssh_known_hosts: git.dev.tencent.com
+  ssh_known_hosts: 
+  - git.dev.tencent.com
+  - nekomio.com
 script:
 - cd ./themes/suka
 - yarn
