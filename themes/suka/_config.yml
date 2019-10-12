@@ -98,12 +98,12 @@ nav:
     use: true
   search:
     use: true
-    link: /search
+    link: /search.html
   pages:
     #About:
       #link: /about/
     Friends:
-      link: /links
+      link: /links.html
 
 # SNS Share Switch
 # Used to choose which items will be displayed in share menu.
