@@ -25,6 +25,15 @@ script:
 - cd ../..
 - hexo clean
 - hexo g
+- git clone git@github.com:nekomio/nekomio.github.io.git
 - cp ./_headers ./public/
 - cp ./aria2.html ./public/
-- hexo d
+- cd nekomio.github.io
+- rm * -rf
+- cp ../public/* ./ -rf
+- git add .
+- git commit -m "`date`"
+- git remote add coding git@git.dev.tencent.com:WildRage/WildRage.coding.me.git
+- git push coding master
+- git push origin master
+# - hexo d
