@@ -20,6 +20,7 @@ scrollbar:
   - '}'
   - '</style>'
 background:
+  - '<style>'
   - 'html:not([stylus-iframe]) body:before {'
   - '  content: "";'
   - '  position: fixed;'
@@ -39,3 +40,4 @@ background:
   - '      background-image: url(https://res.lolicon.app/bilibili/bg_small.png);'
   - '  }'
   - '}'
+  - '</style>'
