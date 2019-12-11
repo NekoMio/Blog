@@ -191,7 +191,7 @@ comment:
     verify: false # valine verify code (true/false)
     pageSize: 10 # comment list page size
     avatar: identicon # gravatar style https://valine.js.org/#/avatar
-    serverURLs: 'https://leancloud.nekomio.com'
+    serverURLs: https://leancloud.nekomio.com
     lang: zh-cn # i18n
     placeholder: Just go go # valine comment input placeholder(like: Please leave your footprints )
     guest_info: nick,mail,link #valine comment header info
