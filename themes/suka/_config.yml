@@ -193,7 +193,7 @@ comment:
     avatar: identicon # gravatar style https://valine.js.org/#/avatar
     serverURLs: https://leancloud.nekomio.com
     lang: zh-cn # i18n
-    placeholder: Just go go # valine comment input placeholder(like: Please leave your footprints )
+    placeholder: '评论经过人工审核后可见(Comment are visible after manual review)' # valine comment input placeholder(like: Please leave your footprints )
     guest_info: nick,mail,link #valine comment header info
   wildfire:
     database_provider: firebase # firebase or wilddog
