@@ -17,7 +17,7 @@ before_install:
 - npm install hexo-cli -g
 addons:
   ssh_known_hosts: 
-  - git.dev.tencent.com
+  - e.coding.net
   - nekomio.com
 script:
 - cd ./themes/suka
