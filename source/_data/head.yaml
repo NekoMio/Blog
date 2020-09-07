@@ -1,5 +1,5 @@
 ﻿Katex:
-  '<link href="/js/KaTex/katex.min.css" rel="stylesheet">'
+  '<link href="https://file.nekomio.com/Blog/js/KaTex/katex.min.css" rel="stylesheet">'
 scrollbar:
   - '<style>'
   - '::-webkit-scrollbar'
