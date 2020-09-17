@@ -38,5 +38,5 @@ script:
 - git push coding master
 - git push origin master
 - tcb login --apiKeyId $qcloud_apiKeyId --apiKey $qcloud_apiKey
-- tcb hosting:deploy ../public -e nekomio-1064ef
+# - tcb hosting:deploy ../public -e nekomio-1064ef
 # - hexo d
