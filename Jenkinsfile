@@ -19,22 +19,6 @@ pipeline {
           ]]])
         }
       }
-      stage('同步推送到Github') {
-        steps {
-          echo '推送到Github'
-          script {
-            try {
-              withCredentials([usernamePassword(credentialsId: '8af46b5c-0700-4555-b176-4d293f3e24a2', usernameVariable: 'REGISTRY_USER', passwordVariable: 'REGISTRY_PASS')]) {
-                sh "git remote add github https://${REGISTRY_USER}:${REGISTRY_PASS}@github.com/NekoMio/Blog"
-                sh "git push github HEAD:master"
-              }
-            } catch(err) {
-              echo err.getMessage()
-            }
-          }
-
-        }
-      }
       stage('拉取成品库') {
         steps {
           echo '从Coding拉取成品'
@@ -50,6 +34,7 @@ pipeline {
       stage('构建') {
         steps {
           echo '开始构建'
+          sh 'pwd && ls'
           sh 'npm install hexo-cli -g'
           sh 'yarn'
           sh 'hexo g'
