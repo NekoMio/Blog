@@ -22,12 +22,11 @@ pipeline {
       stage('同步推送到Github') {
         steps {
           echo '推送到Github'
-          sh 'ls'
           script {
             try {
               withCredentials([usernamePassword(credentialsId: '8af46b5c-0700-4555-b176-4d293f3e24a2', usernameVariable: 'REGISTRY_USER', passwordVariable: 'REGISTRY_PASS')]) {
                 sh "git remote add github https://${REGISTRY_USER}:${REGISTRY_PASS}@github.com/NekoMio/Blog"
-                sh "git push github master"
+                sh "git push github HEAD:master"
               }
             } catch(err) {
               echo err.getMessage()
@@ -43,6 +42,7 @@ pipeline {
             sh "git clone https://${PROJECT_TOKEN_GK}:${PROJECT_TOKEN}@e.coding.net/WildRage/Blog/pages.git"
             sh "cd pages"
             sh "rm * -rf"
+            sh "cd .."
           }
 
         }
