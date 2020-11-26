@@ -24,9 +24,7 @@ pipeline {
           echo '从Coding拉取成品'
           script {
             sh "git clone https://${PROJECT_TOKEN_GK}:${PROJECT_TOKEN}@e.coding.net/WildRage/Blog/pages.git"
-            sh "cd pages"
-            sh "rm * -rf"
-            sh "cd .."
+            sh "rm pages/* -rf"
           }
 
         }
