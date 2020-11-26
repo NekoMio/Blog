@@ -22,6 +22,7 @@ pipeline {
       stage('同步推送到Github') {
         steps {
           echo '推送到Github'
+          sh 'pwd'
           script {
             try {
               withCredentials([usernamePassword(credentialsId: '8af46b5c-0700-4555-b176-4d293f3e24a2', usernameVariable: 'REGISTRY_USER', passwordVariable: 'REGISTRY_PASS')]) {
