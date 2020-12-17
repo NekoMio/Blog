@@ -1,0 +1,10 @@
+name = "my-static-site"
+type = "webpack"
+account_id = "5ae86fc0312b327d343c7e2bb4cbd48e"
+workers_dev = true
+route = "www.nekomio.com/*"
+zone_id = "611bfe71207655856b4d588ef5170074"
+
+[site]
+bucket = "./public"
+entry-point = "workers-site"
