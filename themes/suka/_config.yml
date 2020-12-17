@@ -144,7 +144,7 @@ post:
 # Table Of Contents which will be show on right side of the post
 toc:
   # You can still disable toc for each single post by setting their front-matter with 'toc: false'
-  enable: true
+  enable: false
   # Show line number for each toc list-item or not. Default is true.
   line_number: true
 
