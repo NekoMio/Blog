@@ -1,14 +1,5 @@
 import { getAssetFromKV, mapRequestToAsset } from '@cloudflare/kv-asset-handler'
 
-/**
- * The DEBUG flag will do two things that help during development:
- * 1. we will skip caching on the edge, which makes it easier to
- *    debug.
- * 2. we will return an error message on exception in your Response rather
- *    than the default 404.html page.
- */
-const DEBUG = false
-
 addEventListener('fetch', event => {
   try {
     event.respondWith(handleEvent(event))
@@ -35,13 +26,15 @@ async function handleEvent(event) {
         }
     });
   }
-  if (path === '/atom.xml') {
-    return getAssetFromKV(event, {
+  if (path.endsWith('.png')) {
+    const response = await getAssetFromKV(event, {
       cacheControl: {
-        edgeTtl: 60 * 60,
-        browserTtl: 2 * 60 * 60
+        edgeTtl: 365 * 24 * 60 * 60,
+        browserTtl: 365 * 24 * 60 * 60
       }
     });
+    response.headers.set('cache-control', `public, max-age=${365 * 24 * 60 * 60}, immutable`);
+    return response;
   }
   
   if (path.startsWith('/css/'))  {
