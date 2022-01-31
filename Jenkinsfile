@@ -1,9 +1,8 @@
 pipeline {
   agent {
     docker {
+      image 'node:lts'
       reuseNode true
-      registryUrl 'https://coding-public-docker.pkg.coding.net'
-      image 'public/docker/nodejs:14'
     }
 
   }
@@ -17,6 +16,12 @@ pipeline {
             url: GIT_REPO_URL,
             credentialsId: CREDENTIALS_ID
           ]]])
+        }
+      }
+      stage('同步到GitHub') {
+        steps {
+          sh 'git remote add github https://$GITHUB_NAME:$GITHUB_PASSWD@github.com/NekoMio/Blog'
+          sh 'git push github HEAD:master'
         }
       }
       stage('拉取成品库') {
@@ -35,16 +40,23 @@ pipeline {
           sh 'pwd && ls'
           sh 'npm install hexo-cli -g'
           sh 'yarn'
+          sh 'cd ./themes/suka/ && yarn --production'
           sh 'hexo g'
-          sh 'cp ./_headers ./public/ && cp ./aria2.html ./public/'
-          sh 'cp ../public/* ./pages/ -rf'
+          sh 'cp ./_headers ./public/'
+          sh 'cp ./public/* ./pages/ -rf'
         }
       }
       stage('Push To Coding') {
         steps {
           sh 'cd pages && git add .'
-          sh 'git commit -m "`date`"'
-          sh 'git push origin master'
+          sh 'cd pages && git commit -m "`date`"'
+          sh 'cd pages && git push origin master'
+        }
+      }
+      stage('Push To GitHub') {
+        steps {
+          sh 'cd pages && git remote add github https://$GITHUB_NAME:$GITHUB_PASSWD@github.com/NekoMio/nekomio.github.io'
+          sh 'cd pages && git push github master'
         }
       }
     }
