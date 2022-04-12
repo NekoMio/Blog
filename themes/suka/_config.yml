@@ -65,7 +65,7 @@ footer:
   # Another example, you can setup 'Hosted on Coding Pages' as:
   #   custom_text: 'Hosted on <a href="https://pages.coding.me" rel="nofollow noopener noreferrer">Coding Pages</a>'
   # Muilt line footer text is supported.
-  custom_text: '<a href="http://www.beian.miit.gov.cn" rel="nofollow noopener noreferrer">京ICP备19044785号-1</a><br/>「<a href="https://webify.cloudbase.net/">CloudBase Webify</a> 提供网站托管服务」'
+  custom_text: '<a href="http://www.beian.miit.gov.cn" rel="nofollow noopener noreferrer">京ICP备19044785号-1</a><br/>「<a href="https://webify.cloudbase.net/">CloudBase Webify</a> 与 <a href="https://www.cloudflare.com/">Cloudflare Pages</a> 提供网站托管服务」'
 
 # ---------------------------------------------------------------
 # Customize Settings
@@ -80,7 +80,7 @@ uiux:
   bg_color:
 
 img:
-  avatar: '/null.png'
+  avatar: '/null.webp'
 
 # ---------------------------------------------------------------
 # Menu Settings
