@@ -18,7 +18,7 @@ head:
   #   To get or check favicons visit: https://realfavicongenerator.net
   favicon:
     # You should use a image/x-icon type icon and configure it here.
-    ico: /null.png
+    ico: /null.webp
     # 16x16 png
     small:
     # 32x32 png
