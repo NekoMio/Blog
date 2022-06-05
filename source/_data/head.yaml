@@ -1,5 +1,5 @@
 ﻿Katex:
-  - '<link rel="stylesheet" href="https://npm.elemecdn.com/katex@0.15.3/dist/katex.min.css" integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">'
+  - '<link rel="stylesheet" href="https://npm.elemecdn.com/katex@0.15.6/dist/katex.min.css" integrity="sha384-ZPe7yZ91iWxYumsBEOn7ieg8q/o+qh/hQpSaPow8T6BwALcXSCS6C6fSRPIAnTQs" crossorigin="anonymous">'
   - '<script>
       window.WebFontConfig = {
         custom: {
