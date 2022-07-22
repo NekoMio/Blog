@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'jarredsumner/bun:edge'
+      image 'node:lts'
       reuseNode true
     }
 
@@ -38,6 +38,7 @@ pipeline {
         steps {
           echo '开始构建'
           sh 'pwd && ls'
+          sh 'curl -fsSL https://bun.sh/install | bash'
           sh 'bun install'
           sh 'cd ./themes/suka/ && bun install --production'
           sh 'bun run build'
