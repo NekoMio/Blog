@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'node:lts'
+      image 'jarredsumner/bun:edge'
       reuseNode true
     }
 
@@ -38,10 +38,9 @@ pipeline {
         steps {
           echo '开始构建'
           sh 'pwd && ls'
-          sh 'npm install hexo-cli -g'
-          sh 'yarn'
-          sh 'cd ./themes/suka/ && yarn --production'
-          sh 'hexo g'
+          sh 'bun install'
+          sh 'cd ./themes/suka/ && bun install --production'
+          sh 'bun run build'
           sh 'cp ./_headers ./public/'
           sh 'cp ./public/* ./pages/ -rf'
         }
