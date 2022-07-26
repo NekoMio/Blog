@@ -70,8 +70,11 @@ jobs:
           if_key_exists: fail
       - run: git clone git@github.com:NekoMio/Nekomio.github.io.git pages
       - run: rm pages/* -rf
+      - run: ls ./public/
       - run: cp ./public/* ./pages/ -rf
       - run: cd pages && git add .
+      - run: git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - run: git config --global user.name "github-actions[bot]"
       - run: cd pages && git commit -m "`date`"
       - run: cd pages && git push origin master
       - run: cd pages && git remote add coding git@e.coding.net:WildRage/Blog/pages.git
