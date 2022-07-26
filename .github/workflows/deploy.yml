@@ -45,7 +45,7 @@ jobs:
       - run: yarn && cd ./themes/suka/ && yarn --production
       - run: yarn build
       - run: cp ./_headers ./public/
-      - name: Upload math result for job 1
+      - name: Upload result for build
         uses: actions/upload-artifact@v3
         with:
           name: public
@@ -55,10 +55,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Download math result for build
+      - name: Download result for build
         uses: actions/download-artifact@v3
         with:
           name: public
+          path: ./
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
