@@ -1,0 +1,81 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Hexo Deploy
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.INPUT_DEPLOY_KEY }}
+          name: id_rsa # optional
+          known_hosts: unnecessary
+          config: ${{ secrets.CONFIG }} # ssh_config; optional
+          if_key_exists: fail
+      - run: git remote add coding git@e.coding.net:WildRage/Blog.git
+      - run: git push coding master
+    
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: yarn && cd ./themes/suka/ && yarn --production
+      - run: yarn build
+      - run: cp ./_headers ./public/
+      - name: Upload result for build
+        uses: actions/upload-artifact@v3
+        with:
+          name: public
+          path: ./public
+  
+  push_to_web:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download result for build
+        uses: actions/download-artifact@v3
+        with:
+          name: public
+          path: ./public
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.INPUT_DEPLOY_KEY }}
+          name: id_rsa # optional
+          known_hosts: unnecessary
+          config: ${{ secrets.CONFIG }} # ssh_config; optional
+          if_key_exists: fail
+      - run: git clone git@github.com:NekoMio/Nekomio.github.io.git pages
+      - run: rm pages/* -rf
+      - run: ls ./public/
+      - run: cp ./public/* ./pages/ -rf
+      - run: cd pages && git add .
+      - run: git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - run: git config --global user.name "github-actions[bot]"
+      - run: cd pages && git commit -m "`date`"
+      - run: cd pages && git push origin master
+      - run: cd pages && git remote add coding git@e.coding.net:WildRage/Blog/pages.git
+      - run: cd pages && git push coding master
