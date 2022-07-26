@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - run: mkdir -p /root/.ssh/
-      - run: echo "$INPUT_DEPLOY_KEY" > /root/.ssh/id_rsa
-      - run: chmod 600 /root/.ssh/id_rsa
-      - run: ssh-keyscan -t rsa e.coding.net >> /root/.ssh/known_hosts
+      - run: mkdir -p ~/.ssh/
+      - run: echo "$INPUT_DEPLOY_KEY" > ~/.ssh/id_rsa
+      - run: chmod 600 ~/.ssh/id_rsa
+      - run: ssh-keyscan -t rsa e.coding.net >> ~/.ssh/known_hosts
       - run: git remote add coding git@e.coding.net:WildRage/Blog.git
       - run: git push coding master
     
@@ -37,8 +37,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci
-      - run: npm run build --if-present
+      - run: yarn
+      - run: yarn build
       - run: cp ./_headers ./public/'
       - name: Upload math result for job 1
         uses: actions/upload-artifact@v3
@@ -54,11 +54,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: public
-      - run: mkdir -p /root/.ssh/
-      - run: echo "$INPUT_DEPLOY_KEY" > /root/.ssh/id_rsa
-      - run: chmod 600 /root/.ssh/id_rsa
-      - run: ssh-keyscan -t rsa e.coding.net >> /root/.ssh/known_hosts
-      - run: ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
+      - run: mkdir -p ~/.ssh/
+      - run: echo "$INPUT_DEPLOY_KEY" > ~/.ssh/id_rsa
+      - run: chmod 600 ~/.ssh/id_rsa
+      - run: ssh-keyscan -t rsa e.coding.net >> ~/.ssh/known_hosts
+      - run: ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
       - run: git clone git@github.com:NekoMio/Nekomio.github.io.git pages
       - run: rm pages/* -rf
       - run: cp ./public/* ./pages/ -rf
