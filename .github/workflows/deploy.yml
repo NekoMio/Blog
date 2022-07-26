@@ -10,26 +10,6 @@ on:
     branches: [ "master" ]
 
 jobs:
-  sync:
-    runs-on: ubuntu-20.04
-    
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install SSH key
-        uses: NekoMio/ssh-key-action@v2.3.1.1
-        with:
-          key: ${{ secrets.INPUT_DEPLOY_KEY }}
-          name: id_rsa # optional
-          known_hosts: unnecessary
-          config: |
-            Host e.coding.net
-            HostkeyAlgorithms +ssh-rsa
-            PubkeyAcceptedAlgorithms +ssh-rsa
-          if_key_exists: fail
-      - run: ssh-keyscan -t rsa e.coding.net >> ~/.ssh/known_hosts
-      - run: git remote add coding git@e.coding.net:WildRage/Blog.git
-      - run: git push coding master
-    
   build:
 
     runs-on: ubuntu-latest
