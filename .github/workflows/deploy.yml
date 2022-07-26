@@ -59,7 +59,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: public
-          path: ./
+          path: ./public
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
