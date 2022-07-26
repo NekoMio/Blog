@@ -11,7 +11,7 @@ on:
 
 jobs:
   sync:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     
     steps:
       - uses: actions/checkout@v3
@@ -21,11 +21,9 @@ jobs:
           key: ${{ secrets.INPUT_DEPLOY_KEY }}
           name: id_rsa # optional
           known_hosts: unnecessary
-          config: |
-            Host e.coding.net
-            HostkeyAlgorithms +ssh-rsa
-            PubkeyAcceptedAlgorithms +ssh-rsa
+          config: ${{ secrets.CONFIG }} # ssh_config; optional
           if_key_exists: fail
+      - run: cat >>~/.ssh/
       - run: git remote add coding git@e.coding.net:WildRage/Blog.git
       - run: git push coding master
     
@@ -69,10 +67,7 @@ jobs:
           key: ${{ secrets.INPUT_DEPLOY_KEY }}
           name: id_rsa # optional
           known_hosts: unnecessary
-          config: |
-            Host e.coding.net
-            HostkeyAlgorithms +ssh-rsa
-            PubkeyAcceptedAlgorithms +ssh-rsa
+          config: ${{ secrets.CONFIG }} # ssh_config; optional
           if_key_exists: fail
       - run: git clone git@github.com:NekoMio/Nekomio.github.io.git pages
       - run: rm pages/* -rf
