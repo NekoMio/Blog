@@ -1,0 +1,69 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Hexo Deploy
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - run: mkdir -p /root/.ssh/
+      - run: echo "$INPUT_DEPLOY_KEY" > /root/.ssh/id_rsa
+      - run: chmod 600 /root/.ssh/id_rsa
+      - run: ssh-keyscan -t rsa e.coding.net >> /root/.ssh/known_hosts
+      - run: git remote add coding git@e.coding.net:WildRage/Blog.git
+      - run: git push coding master
+    
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: cp ./_headers ./public/'
+      - name: Upload math result for job 1
+        uses: actions/upload-artifact@v3
+        with:
+          name: public
+          path: ./public
+  
+  push_to_web:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download math result for build
+        uses: actions/download-artifact@v3
+        with:
+          name: public
+      - run: mkdir -p /root/.ssh/
+      - run: echo "$INPUT_DEPLOY_KEY" > /root/.ssh/id_rsa
+      - run: chmod 600 /root/.ssh/id_rsa
+      - run: ssh-keyscan -t rsa e.coding.net >> /root/.ssh/known_hosts
+      - run: ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
+      - run: git clone git@github.com:NekoMio/Nekomio.github.io.git pages
+      - run: rm pages/* -rf
+      - run: cp ./public/* ./pages/ -rf
+      - run: cd pages && git add .
+      - run: cd pages && git commit -m "`date`"
+      - run: cd pages && git push origin master
+      - run: cd pages && git remote add coding git@e.coding.net:WildRage/Blog/pages.git
+      - run: cd pages && git push coding master
