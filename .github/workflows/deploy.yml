@@ -20,7 +20,7 @@ jobs:
         with:
           key: ${{ secrets.INPUT_DEPLOY_KEY }}
           name: id_rsa # optional
-          known_hosts: unnecessary
+          known_hosts: e.coding.net
           config: |
             Host e.coding.net
             HostkeyAlgorithms +ssh-rsa
@@ -68,7 +68,7 @@ jobs:
         with:
           key: ${{ secrets.INPUT_DEPLOY_KEY }}
           name: id_rsa # optional
-          known_hosts: unnecessary
+          known_hosts: e.coding.net
           config: |
             Host e.coding.net
             HostkeyAlgorithms +ssh-rsa
