@@ -23,7 +23,6 @@ jobs:
           known_hosts: unnecessary
           config: ${{ secrets.CONFIG }} # ssh_config; optional
           if_key_exists: fail
-      - run: cat >>~/.ssh/
       - run: git remote add coding git@e.coding.net:WildRage/Blog.git
       - run: git push coding master
     
