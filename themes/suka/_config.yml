@@ -221,10 +221,10 @@ comment:
 # Site Analytics
 # Suka theme has a built in Baidu's, Google's website analytics and CNZZ's analytics service
 analytics:
-  cfga_site_id: UA-102044541-2
-  cfga_site_url: https://analytics.nekomio.com/cfga/jquery.js
+  cfga_site_id:
+  cfga_site_url:
   google_site_id:
-  gtags_site_id:
+  gtags_site_id: G-T9TWLDVQ6L
   baidu_site_id:
   cnzz_site_id:
   tencent_site_id:
