@@ -399,7 +399,7 @@ vendors:
   lazyload:
   # Busuanzi
   # https://busuanzi.ibruce.info
-  busuanzi: https://busuanzi.icodeq.com/busuanzi.pure.mini.js
+  busuanzi:
   # Hanabi
   # https://github.com/egoist/hanabi
   # Version: 0.4.0
