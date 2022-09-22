@@ -63,7 +63,7 @@ jobs:
       - run: git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - run: git config --global user.name "github-actions[bot]"
       - run: ssh-keyscan -t rsa e.coding.net >> ~/.ssh/known_hosts
+      - run: cd pages && git commit -m "`date`"
       - run: cd pages && git remote add coding git@e.coding.net:WildRage/Blog/pages.git
       - run: cd pages && git push coding master
-      - run: cd pages && git commit -m "`date`"
       - run: cd pages && git push origin master
