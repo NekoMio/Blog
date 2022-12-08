@@ -1,26 +1,24 @@
 <div id="vcomments"></div>
 
-<script src="https://cdn.bootcdn.net/ajax/libs/valine/1.5.1/Valine.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.bootcdn.net/ajax/libs/waline/2.14.1/waline.css"
+/>
+<script src="https://cdn.bootcdn.net/ajax/libs/waline/2.14.1/waline.js"></script>
 <script>
-    var GUEST_INFO = ['nick','mail','link'];
-    var guest_info = '<%= theme.comment.valine.guest_info %>'.split(',').filter(function(item){
-        return GUEST_INFO.indexOf(item) > -1
-    });
-    var notify = '<%= theme.comment.valine_notify %>' === 'true';
-    var verify = '<%= theme.comment.valine_verify %>' === 'true';
-    new Valine({
+    Waline.init({
         el: '#vcomments',
-        notify: notify,
-        verify: verify,
-        appId: "<%= theme.comment.valine.leancloud_appId %>",
-        appKey: "<%= theme.comment.valine.leancloud_appKey %>",
-        placeholder: "<%= theme.comment.valine.placeholder %>",
-        meta: guest_info,
+        locale: {
+            placeholder: "<%= theme.comment.valine.placeholder %>",
+        },
+        path: window.location.pathname.replace(/\/$/,''),
         pageSize:'<%= theme.comment.valine.pageSize %>',
-        avatar:'<%= theme.comment.valine.avatar %>',
+        wordLimit: 250,
         lang:'<%= theme.comment.valine.lang %>',
-        serverURLs: '<%= theme.comment.valine.serverURLs %>',
-        guest_info: guest_info,
-        visitor: <%= theme.valine_counter.enable %>
+        serverURL: '<%= theme.comment.valine.serverURL %>',
+        emoji: [
+            '//unpkg.com/@waline/emojis@1.1.0/weibo',
+            '//unpkg.com/@waline/emojis@1.1.0/bilibili',
+        ],
     });
 </script>
