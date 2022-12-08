@@ -6,19 +6,23 @@
 />
 <script src="https://cdn.bootcdn.net/ajax/libs/waline/2.14.1/waline.js"></script>
 <script>
-    Waline.init({
-        el: '#vcomments',
-        locale: {
-            placeholder: "<%= theme.comment.valine.placeholder %>",
-        },
-        path: window.location.pathname.replace(/\/$/,''),
-        pageSize:'<%= theme.comment.valine.pageSize %>',
-        wordLimit: 250,
-        lang:'<%= theme.comment.valine.lang %>',
-        serverURL: '<%= theme.comment.valine.serverURL %>',
-        emoji: [
-            '//unpkg.com/@waline/emojis@1.1.0/weibo',
-            '//unpkg.com/@waline/emojis@1.1.0/bilibili',
-        ],
-    });
+    function loadWaline () {
+        Waline.init({
+            el: '#vcomments',
+            locale: {
+                placeholder: "<%= theme.comment.valine.placeholder %>",
+            },
+            path: window.location.pathname,
+            pageSize:'<%= theme.comment.valine.pageSize %>',
+            wordLimit: 250,
+            lang:'<%= theme.comment.valine.lang %>',
+            serverURL: '<%= theme.comment.valine.serverURL %>',
+            reaction: true,
+            emoji: [
+                '//unpkg.com/@waline/emojis@1.1.0/weibo',
+                '//unpkg.com/@waline/emojis@1.1.0/bilibili',
+            ],
+        });
+    }
+    window.addEventListener('DOMContentLoaded', loadWaline, false);
 </script>
