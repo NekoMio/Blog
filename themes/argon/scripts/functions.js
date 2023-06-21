@@ -222,13 +222,13 @@ hexo.extend.helper.register('getexcerpt', function (content, len, moretag) {
 	content = stripHTML(content);
 	if (moretag){
 		if (content.search(/<!--more(.*?)-->/i) !== -1){
-			return content.substr(0, content.search(/<!--more(.*?)-->/i)).replace("\n", "\\n") + "...";
+			return content.substr(0, content.search(/<!--more(.*?)-->/i)).replaceAll("\n", "\\n") + "...";
 		}
 	}
 	if (content.length <= len){
-		return content.replace("\n", "\\n");
+		return content.replaceAll("\n", "\\n");
 	}
-	return content.substr(0,len).replace("\n", "\\n") + "...";
+	return content.substr(0,len).replaceAll("\n", "\\n") + "...";
 });
 
 // 预处理文章
