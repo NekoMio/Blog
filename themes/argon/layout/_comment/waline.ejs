@@ -1,0 +1,26 @@
+<div id="waline"></div>
+<script>
+  function loadWaline() {
+    argonConfig.waline = Waline.init({
+        el: '#waline',
+        locale: {
+            placeholder: "<%= theme.waline.placeholder %>",
+        },
+        path: window.location.pathname,
+        pageSize:'<%= theme.waline.pageSize %>',
+        wordLimit: 250,
+        lang:'<%= theme.waline.lang %>',
+        serverURL: '<%= theme.waline.serverURL %>',
+        emoji: [
+            '//unpkg.com/@waline/emojis@1.1.0/weibo',
+            '//unpkg.com/@waline/emojis@1.1.0/bilibili',
+        ],
+    });
+  }
+  function destroyWaline() {
+    if (argonConfig.waline) {
+      argonConfig.waline.destroy();
+      argonConfig.waline = null;
+    }
+  }
+</script>

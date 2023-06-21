@@ -44,16 +44,16 @@ post_asset_folder: false
 relative_link: false
 future: true
 highlight:
-  enable: true
-  line_number: true
+  enable: false
+  line_number: false
   auto_detect: false
   tab_replace: ''
-  wrap: true
+  wrap: false
   hljs: false
 prismjs:
   enable: false
-  preprocess: true
-  line_number: true
+  preprocess: false
+  line_number: false
   tab_replace: ''
 
 index_generator:
@@ -93,7 +93,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: suka
+theme: argon
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -146,14 +146,14 @@ clean_css:
   exclude: 
     - '*.min.css'
 
-html_minifier:  
-  collapseBooleanAttributes: true
-  collapseWhitespace: true
-  # Ignore '<!-- more -->' https://hexo.io/docs/tag-plugins#Post-Excerpt
-  ignoreCustomComments: [ !!js/regexp /^\s*more/]
-  removeComments: true
-  removeEmptyAttributes: true
-  removeScriptTypeAttributes: true
-  removeStyleLinkTypeAttributes: true
-  minifyJS: true
-  minifyCSS: true
+# html_minifier:  
+#   collapseBooleanAttributes: true
+#   collapseWhitespace: true
+#   # Ignore '<!-- more -->' https://hexo.io/docs/tag-plugins#Post-Excerpt
+#   ignoreCustomComments: [ !!js/regexp /^\s*more/]
+#   removeComments: true
+#   removeEmptyAttributes: true
+#   removeScriptTypeAttributes: true
+#   removeStyleLinkTypeAttributes: true
+#   minifyJS: true
+#   minifyCSS: true
