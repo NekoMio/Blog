@@ -711,6 +711,7 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 	getGithubInfoCardContent();
 	showPostOutdateToast();
 	calcHumanTimesOnPage();
+	$.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
 
 	if (typeof(window.pjaxLoaded) == "function"){
 		try{
