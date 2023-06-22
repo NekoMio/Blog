@@ -1,7 +1,7 @@
 # 全局
 theme_color: '#5e72e4' # 主题色
 show_customize_theme_color_picker: true # 允许用户自定义主题色
-darkmode_autoswitch: false # 自动切换夜间模式，可选: false 默认使用日间, alwayson 默认使用夜间, system 跟随系统, time 随时间切换
+darkmode_autoswitch: system # 自动切换夜间模式，可选: false 默认使用日间, alwayson 默认使用夜间, system 跟随系统, time 随时间切换
 enable_amoled_dark: false # 夜间模式样式，false 为灰黑，true 则为暗黑
 card_radius: 4 # 默认卡片圆角大小
 card_shadow: # 默认卡片阴影大小，可选 small 和 big
