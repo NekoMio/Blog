@@ -90,7 +90,7 @@ enable_pangu: false # 是否启用 Pangu.js 自动用空格分隔文章中的中
 
 # 其他
 pjax_disabled: false # 是否禁用 Pjax
-enable_into_article_animation: false # 是否启用进入文章动画
+enable_into_article_animation: true # 是否启用进入文章动画
 enable_mobile_scale: false # 是否允许手机端缩放页面
 
 # 页脚
