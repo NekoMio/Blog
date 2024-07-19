@@ -1,6 +1,6 @@
 Katex:
-  - '<script defer src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.0/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>'
-  - '<script defer src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.0/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>'
+  - '<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>'
+  - '<script defer src="hhttps://cdn.jsdelivr.net/npm/katex@0.16.11/contrib/auto-render/auto-render.js" crossorigin="anonymous"></script>'
   - '<script> document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement(document.body, {
           delimiters: [
